@@ -6,3 +6,6 @@ For peer programming sessions:
 
 Commit message guideline:
 - Write useful commit messages
+
+After completing each task:
+- Update task chart by checking off the task that was completed with the date of completion
