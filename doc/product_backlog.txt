@@ -1,0 +1,15 @@
+1)	Initial page that allows one to input search criteria comprised of a researcher’s last name
+2)	When a search is submitted, it should create word cloud of the top X number of papers in the ACM and IEEE digital library that match the provided criteria
+3)	Clicking on a word in the cloud should return a list of papers that mention that word
+4)	For each paper, provide links to download it from the digital library 
+5)	For each paper, provide links to access its bibtex
+6)	Show a status bar for current progress in generating the word cloud
+7)	For each paper, clicking on an author in its author list will do a new search based on that author
+8)	For each paper, clicking on a paper’s conference name will list other papers from that conference
+9)	For each paper, clicking on a paper’s title will allow the user to read the abstract with the word(s) highlighted 
+10)	Export lists of papers as PDFs and plain text
+11)	Access previously entered searches
+12)	For the paper list, allow users to select a subset to generate a new word cloud from
+13)	Allow for the downloading of an image of the generated word cloud
+14)	Initial page that allows one to input search criteria comprised of a keyword phrase
+15)	For each paper, clicking on a paper’s title will allow the user to access for download a PDF version of the paper with the word highlighted in the PDF
