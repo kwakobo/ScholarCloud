@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>QUnit Test Suite</title>
+		<script type="text/javascript" src="bower_components/blanket/src/blanket.js"></script>
+		<link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css">
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.1.1.css">
+
+		<!-- old code to link js pages 
+  		<script type="text/javascript" src="../../src/SongLyrics.js" data-cover></script>
+  		<script type="text/javascript" src="../../src/SongList.js" data-cover></script>
+  		<script type="text/javascript" src="../../src/AutoComplete.js" data-cover></script>
+  		-->
+
+	</head>
+	<body>
+    	<div id="qunit"></div>
+    	<div id="qunit-fixture"></div>
+    	<script src="https://code.jquery.com/qunit/qunit-2.1.1.js"></script>
+
+    	<script>
+    		/* 
+    			Quinn & Taylor's Blackbox Tests
+    		*/
+    		//Correct Author, checks if func returns correct author
+    		QUnit.test("checkAuthor", function( assert ) {
+    			//run our function on author, compare to expectedResult
+    			function authorTest(author, expectedResult) {
+    				assert.equal(getAuthor(author), expectedResult); 
+    			}
+    			authorTest("Shakes", "Shakes"); 
+    		});
+    		//Correct Paper, checks if func returns expected title
+    		QUnit.test("checkPaperTitle", function( assert ) {
+    			//run our function on title, compare to expectedResult
+    			function paperTest(title, expectedResult) {
+    				assert.equal(getPaperTitle(title), expectedResult); 
+    			}
+    			paperTest("Shakes", "Shakes"); 
+    		});
+    		//Correct Link, checks if func researches correct link
+    		QUnit.test("checkLink", function( assert ) {
+    			//run our function on link, compare to expectedResult
+    			function linkTest(link, expectedResult) {
+    				assert.equal(getPaper(link), expectedResult); 
+    			}
+    			linkTest("Shakes", "www.Shakes.com"); 
+    		});
+    		//Correct Frequency of Word
+    		QUnit.test("checkWordFrequency", function( assert ) {
+    			//run our function on author, compare to expectedResult
+    			function authorTest(word, expectedResult) {
+    				assert.equal(getFrequency(word), expectedResult); 
+    			}
+    			authorTest("Shakes", 3); 
+    		});
+    		//Check if link is there 
+    		QUnit.test("isThereLink", function( assert ) {
+    			function linkTest(expectedResult) {
+    				assert.equal(getCurrentLink(), expectedResult);
+    			}
+    			linkTest("www.Shakes.com"); 
+    		}); 
+    	</script>
+	</body>
+</html>

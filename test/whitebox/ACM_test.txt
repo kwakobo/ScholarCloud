@@ -1,0 +1,5 @@
+ACM test would revolve around searching for all the contents (title, all authors, link, and type)
+
+1 the first test consist of a single word name -> should return nothing because everyone has a first and a last name
+2 the second test consist of a two word name -> should be a basic test to see if the function works
+3 the third test consist of a three or more name -> should test the function if it able to handle more rare names types
