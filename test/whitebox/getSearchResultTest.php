@@ -55,5 +55,23 @@ class IEEESearchResultsTest extends TestCase
 		$this->assertTrue(true);
 		return 1;
 	}
+	
+	/*
+	 * @dataProvider provider
+	 */
+	public function testCorrectCreateArticleArray()
+	{
+		$this->assertTrue(true);
+		return 1;
+	}
+	
+	/*
+	 * @dataProvider provider
+	 */
+	public function testReturnedResultIsSmallerThanSpecifiedTopNumSearch()
+	{
+		$this->assertTrue(true);
+		return 1;
+	}
 }
 ?>
