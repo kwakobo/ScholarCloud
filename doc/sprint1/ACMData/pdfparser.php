@@ -2,10 +2,10 @@
  
 // Include Composer autoloader if not already done.
 include 'vendor/autoload.php';
-include 'parser.php';
-include 'document.php';
+include_once 'parser.php';
+include_once 'document.php';
 
-class pdfparser implements Parser
+class PdfParser implements Parser
 {
     function __construct()
     {
@@ -22,7 +22,9 @@ class pdfparser implements Parser
  		$text = $pdf->getText();
  		unlink($filename);
 
+ 		echo $text;
 		return new Document($author, $title, $document);
     }
 }
+
 ?>
