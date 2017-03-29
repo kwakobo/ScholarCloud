@@ -16,15 +16,16 @@ class DocumentParser
 	{
 		$this->data = $data;
 		$this->parsers = array(
-		'PDF' => new PdfParser(),
-		'HTML' => new HtmlParser(),
-		'TEXT' => new TxtParser()
-	);
-		$this->parseData();
+			'PDF' => new PdfParser(),
+			'HTML' => new HtmlParser(),
+			'TEXT' => new TxtParser()
+		);
 	}
 
-	private function parseData()
+	public function parseDocuments()
 	{
+		if (is_null($data)) return null;
+
 		$documents = array();
 		foreach($this->data as $elem)
 		{
@@ -34,6 +35,7 @@ class DocumentParser
 		}
 
 		$this->writeToJSON($documents);
+		return $documents;
 	}
 
 	private function writeToJSON($documents)
@@ -44,7 +46,4 @@ class DocumentParser
 	}
 
 }
-
-$arr = array(array('publication_type' => 'PDF','author' => 'William G. J. Halfond', 'title' => 'An Article', 'link_to_publication' => 'http://dl.acm.org/ft_gateway.cfm?id=1101935&ftid=338180&dwn=1&#URLTOKEN#'));
-$test = new DocumentParser($arr);
 ?>
