@@ -1,7 +1,7 @@
 <?php
 
-include 'parser.php';
-include 'document.php';
+include_once 'parser.php';
+include_once 'document.php';
 
 class TxtParser implements Parser
 {
