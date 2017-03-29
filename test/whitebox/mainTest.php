@@ -11,6 +11,19 @@ function fromString() {
 function getAuthor() {
     return (1);
 }
+
+function getTitle() {
+    return (1);
+}
+
+function getLink() {
+    return (1);
+}
+
+function getFrequency() {
+    return (1);
+}
+
 /**
  * @covers Email
  */
@@ -23,6 +36,22 @@ final class EmailTest extends TestCase
     }
 
     public function checkAuthor() {
-        $this->assertEquals("", getAuthor("name"))
+        $this->assertEquals("", getAuthor("name"));
+    }
+
+    public function checkPaperTitle() {
+        $this->assertEquals("", getTitle("title"));
+    }
+
+    public function checkLink() {
+        $this->assertEquals("", getLink("title"));
+    }
+
+    public function checkWordFrequency() {
+        $this->assertEquals("", getFrequency(50));
+    }
+
+    public function checkWordFrequency() {
+        $this->assertEquals("", getFrequency(50));
     }
 }
