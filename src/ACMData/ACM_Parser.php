@@ -127,11 +127,11 @@ class ACMParser
 $output = $parser->parse("David", 7);
 
 for ($i = 0; $i < count($output); $i++) {
-	echo "$"."output[".$i."]['author'] = ".$output[$i]['author'].";<br>";
+	echo "$"."output[".$i."]['authors'] = ".$output[$i]['authors'].";<br>";
 	echo "$"."output[".$i."]['title'] = ".$output[$i]['title'].";<br>";
-	echo "$"."output[".$i."]['link_to_publication'] = ".$output[$i]['link_to_publication'].";<br>";
+	echo "$"."output[".$i."]['article'] = ".$output[$i]['article'].";<br>";
 	echo "$"."output[".$i."]['publication_type'] = ".$output[$i]['publication_type'].";<br>";
-	echo "$"."output[".$i."]['link_to_bibtex'] = ".$output[$i]['link_to_bibtex'].";<br>";
+	echo "$"."output[".$i."]['bibtex'] = ".$output[$i]['bibtex'].";<br>";
 	echo "<br>";
 }*/
 
