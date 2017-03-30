@@ -100,10 +100,10 @@ class ACMParser
 					$link_to_publication_web !== "")
 			 {
 				 $return_arr[$index]['title'] = trim($title);
-	 			 $return_arr[$index]['author'] = trim($author);
-	 			 $return_arr[$index]['link_to_publication'] = trim($link_to_publication);
+	 			 $return_arr[$index]['authors'] = trim($author);
+	 			 $return_arr[$index]['article'] = trim($link_to_publication);
 	 			 $return_arr[$index]['publication_type'] = trim($publication_type);
-				 $return_arr[$index]['link_to_bibtex'] = trim($this->getBibTeXURL($link_to_publication_web));
+				 $return_arr[$index]['bibtex'] = trim($this->getBibTeXURL($link_to_publication_web));
 			 	 $index++;
 		 	 }
 
