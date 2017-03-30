@@ -1,5 +1,5 @@
 <?php
-include(dirname(__FILE__)."/../documentparser.php");
+include(dirname(__FILE__)."/../../src/ACMData/documentparser.php");
 use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
