@@ -2,15 +2,19 @@
 
 class Document
 {
-	public $author;
 	public $title;
-	public $document;
+	public $authors;
+	public $article;
+	public $bibtex;
+	public $text;
 	
-	function __construct($author, $title, $document)
+	function __construct($title, $authors, $article, $bibtex, $text)
 	{
-		$this->author = $author;
 		$this->title = $title;
-		$this->document = $document;
+		$this->authors = $authors;
+		$this->article = $article;
+		$this->bibtex = $bibtex;
+		$this->text = $text;
 	}
 }
 

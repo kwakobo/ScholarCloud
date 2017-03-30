@@ -12,18 +12,18 @@ class PdfParser implements Parser
 		$this->parser = new \Smalot\PdfParser\Parser();
     }
 
-    public function parse($author, $title, $resource)
+    public function parse($title, $authors, $article, $bibtex)
     {	
-    	$filename = $author."_".$title.".pdf";
-    	file_put_contents($filename, fopen($resource, 'r'));
+        //create temporary file
+    	$filename = $authors."_".$title.".pdf";
+    	file_put_contents($filename, fopen($article, 'r'));
     	
     	//parse PDF and delete tmp file
     	$pdf = $this->parser->parseFile($filename);
  		$text = $pdf->getText();
  		unlink($filename);
 
- 		echo $text;
-		return new Document($author, $title, $document);
+		return new Document($title, $authors, $article, $bibtex, $text);
     }
 }
 

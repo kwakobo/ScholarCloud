@@ -24,13 +24,12 @@ class DocumentParser
 
 	public function parseDocuments()
 	{
-		if (is_null($data)) return null;
+		if (is_null($this->data)) return null;
 
 		$documents = array();
 		foreach($this->data as $elem)
 		{
-			$document = $this->parsers[$elem['publication_type']]->parse($elem['author'],
-				$elem['title'], $elem['link_to_publication']);
+			$document = $this->parsers[$elem['publication_type']]->parse($elem['title'], $elem['authors'], $elem['article'], $elem['bibtex']);
 			array_push($documents, $document);
 		}
 

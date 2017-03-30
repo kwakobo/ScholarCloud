@@ -1,5 +1,6 @@
 <?php
-use PHPUnit\Framework\TestCase;
+include_once '/Users/AlexNagel/Code/ScholarCloud/src/ACMData/vendor/phpunit/phpunit/src/Framework/TestCase.php'
+
 
 class ParserTest extends TestCase
 {
@@ -9,5 +10,6 @@ class ParserTest extends TestCase
         $test = new DocumentParser($arr);
         $this->assertEquals(0, $test->parseDocuments());
     }
+
 }
 ?>

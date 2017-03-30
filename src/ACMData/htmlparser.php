@@ -6,11 +6,12 @@ include_once 'document.php';
 
 class HtmlParser implements Parser
 {
-	public function parse($author, $title, $resource)
+	public function parse($title, $authors, $article, $bibtex)
 	{
 		$html = new \Html2Text\Html2Text(file_get_contents($resource));
-		$document = $html->getText();
-		return new Document($author, $title, $document);
+		$text = $html->getText();
+		
+		return new Document($title, $authors, $article, $bibtex, $text);
 	}
 }
 ?>

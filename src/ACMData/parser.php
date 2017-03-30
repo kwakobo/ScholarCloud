@@ -2,6 +2,6 @@
 
 interface Parser
 {
-	public function parse($author, $title, $resource);
+	public function parse($title, $authors, $article, $bibtex);
 }
 ?>
