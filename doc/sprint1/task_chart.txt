@@ -1,11 +1,11 @@
 Sprint 1 Task Chart
 
 Initial page that allows one to input search criteria comprised of a researcher’s last name
-	1) Search Bar  (0.1h)- Jason, Mi Hyun
-	2) Search Button (0.1h) - Jason, Mi Hyun
-	3) Search bar for the user to specify the top X number of papers (0.1h) - Jason, Mi Hyun
+	1) Search Bar  (0.1h)- Jason, Mi Hyun - completed 3/29
+	2) Search Button (0.1h) - Jason, Mi Hyun - completed 3/29
+	3) Search bar for the user to specify the top X number of papers (0.1h) - Jason, Mi Hyun - completed 3/29
 When a search is submitted, it should create word cloud of the top X number of papers in the ACM and IEEE digital library that match the provided criteria
-	4) API integration for IEEE digital library (3h) - Jason, Mi Hyun
+	4) API integration for IEEE digital library (3h) - Jason, Mi Hyun - completed 3/29
 	5) Web scraping for ACM digital library (4h) - Jeffrey, Bryce
 	6) Integrating both IEEE and ACM results (1h) - Quinn, Taylor
 	7) Parsing for the documents for frequency of the word (2h) - Quinn, Taylor

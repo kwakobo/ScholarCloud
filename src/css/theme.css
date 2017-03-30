@@ -1,0 +1,25 @@
+header, body {
+	background-color: grey;
+}
+
+header {
+	padding: 20px;
+	#color: white;
+	#background-color: black;
+	text-align: center;
+}
+
+#body {
+	left: 0px;
+	position: absolute;
+	width: 100%;
+	min-height: calc(100% - 127px);;
+}
+
+#search_bar {
+	padding-top: 30%;
+}
+
+.button {
+	color: green;
+}

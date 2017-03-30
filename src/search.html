@@ -1,0 +1,36 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/theme.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<center>
+			<div id="wordcloud">
+			</div>
+			<div id="search_bar">
+				<form id="search_form">
+					<input type="text" name="search_text" size=50>
+					<input type="text" name="x_results" size=2 placeholder="Max">
+					<input type="submit" value="Search"><br>
+  					<input type="radio" name="database" value="ieee" checked="checked"> IEEE
+					<input type="radio" name="database" value="acm"> ACM<br>
+				</form>
+				<script>
+					$('#search_form').submit(function(e){
+						e.preventDefault();
+						$.ajax({
+							url:'getSearchResult.php',
+							type:'post',
+							data:$('#search_form').serialize(),
+							success:function(data){
+								//TO DO
+								// data is the returned response from search.php
+							}
+						});
+					});
+				</script>
+			</div>
+		</center>
+	</body>
+</html>
