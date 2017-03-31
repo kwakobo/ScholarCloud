@@ -7,7 +7,7 @@ $output = $parser->parse("David", 7);
 
 $docparser = new DocumentParser($output);
 
-echo $docparser->parseDocuments();
+$docparser->parseDocuments();
 
 
 

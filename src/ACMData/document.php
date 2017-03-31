@@ -14,7 +14,7 @@ class Document
 		$this->authors = $authors;
 		$this->article = $article;
 		$this->bibtex = $bibtex;
-		$this->text = $text;
+		$this->text = utf8_encode($text);
 	}
 }
 
