@@ -40,7 +40,7 @@ class DocumentParser
 	private function writeToJSON($documents)
 	{
 		$fp = fopen('documents.json', 'w');
-		fwrite($fp, json_encode($documents, JSON_UNESCAPED_UNICODE));
+		fwrite($fp, json_encode($documents));
 		fclose($fp);
 	}
 
