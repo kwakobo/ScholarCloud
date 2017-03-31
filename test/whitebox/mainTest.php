@@ -20,9 +20,9 @@ function getFrequency() {
 }
 
 /**
- * @covers Email
+ * 
  */
-final class EmailTest extends TestCase
+final class FrequencyTest extends TestCase
 {
     public function checkAuthor() {
         $this->assertEquals("", getAuthor("name"));
