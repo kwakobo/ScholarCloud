@@ -8,10 +8,11 @@ class HtmlParser implements Parser
 {
 	public function parse($title, $authors, $article, $bibtex)
 	{
-		$html = new \Html2Text\Html2Text(file_get_contents($resource));
+		$html = new \Html2Text\Html2Text(file_get_contents($article));
 		$text = $html->getText();
 		
 		return new Document($title, $authors, $article, $bibtex, $text);
 	}
 }
+
 ?>

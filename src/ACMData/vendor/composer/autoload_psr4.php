@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\Process\\' => array($baseDir . '/'),
+    'Asika\\' => array($vendorDir . '/asika/pdf2text/src'),
 );
