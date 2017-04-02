@@ -98,7 +98,7 @@ class PDF2Text {
 			@set_time_limit ();
 			if($this->showprogress) {
 //				echo ". ";
-				/*flush();*/ob_start(); ob_flush();
+				/*flush();*/ob_start();ob_flush();
 			}
 
 			// Check if an object includes data stream.

@@ -11,12 +11,20 @@ class ComposerStaticInitc0660f00c7b358217f7cc1c04279c452
         array (
             'Symfony\\Component\\Process\\' => 26,
         ),
+        'A' => 
+        array (
+            'Asika\\' => 6,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Symfony\\Component\\Process\\' => 
         array (
             0 => __DIR__ . '/../..' . '/',
+        ),
+        'Asika\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/asika/pdf2text/src',
         ),
     );
 

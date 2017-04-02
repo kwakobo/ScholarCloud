@@ -17,7 +17,8 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "smalot/pdfparser": "*"
+        "smalot/pdfparser": "*",
+        "asika/pdf2text": "1.*"
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\Process\\": "" },
