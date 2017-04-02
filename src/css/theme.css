@@ -16,10 +16,6 @@ header {
 	min-height: calc(100% - 127px);;
 }
 
-#search_bar {
-	padding-top: 30%;
-}
-
 .button {
 	color: green;
 }

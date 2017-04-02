@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/theme.css">
+		<script type="text/javascript" src="include/wordcloud2.js"></script>
+		<script type="text/javascript" src="include/wordfreq.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	</head>
 	<body>
@@ -9,23 +11,60 @@
 			<div id="wordcloud">
 			</div>
 			<div id="search_bar">
+				<canvas id="my_canvas" width="960" height="540" ></canvas>
 				<form id="search_form">
-					<input type="text" name="search_text" size=50>
-					<input type="text" name="x_results" size=2 placeholder="Max">
+					<input type="text" name="au" size=50 value="halfond">
+					<input type="text" name="hc" size=2 placeholder="Max" value="1">
 					<input type="submit" value="Search"><br>
-  					<input type="radio" name="database" value="ieee" checked="checked"> IEEE
-					<input type="radio" name="database" value="acm"> ACM<br>
+					<!--
+	  					<input type="radio" name="database" value="ieee" checked="checked"> IEEE
+						<input type="radio" name="database" value="acm"> ACM<br>
+					-->
 				</form>
 				<script>
 					$('#search_form').submit(function(e){
 						e.preventDefault();
 						$.ajax({
-							url:'getSearchResult.php',
-							type:'post',
-							data:$('#search_form').serialize(),
+							url:'ieee_api.php',
+							type: 'get',
+							data: $('#search_form').serialize(),
 							success:function(data){
 								//TO DO
 								// data is the returned response from search.php
+								var json_data = JSON.parse(data);
+								localStorage.articles = data;
+								if(json_data.length == 0)
+								{
+									alert("Author not found");
+									return;
+								}
+								//console.log(json_data[0]['authors'] + " " + json_data.length)
+								var raw_words_from_doc = "";
+								for(var i = 0; i < json_data.length; i++)
+								{
+									raw_words_from_doc += json_data[i]['abstract'];
+								}
+								var wordfreq = WordFreq({
+									workerUrl: "include/wordfreq.worker.js",
+									stopWords: true
+								});
+								wordfreq.process(raw_words_from_doc, function(list) {
+									var cloud = WordCloud(document.getElementById('my_canvas'), {
+										list: list,
+										gridSize: 0,
+										weightFactor: 1/list.length*1000*540/960,
+										backgroundColor: "white",
+										maxRotation: 0,
+										minRotation: 0,
+										drawOutOfBound: false,
+										click: function(item, dimension, event) {
+											localStorage.word_chosen = item[0];
+											window.location = "authorlist.html";
+											console.log(item);
+										}
+									});
+									//console.log(list.length + " " + JSON.stringify(list));
+								});
 							}
 						});
 					});

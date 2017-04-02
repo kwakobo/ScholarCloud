@@ -1,5 +1,4 @@
 <?php
-	
 	function getXMLResponse($url_top_x_search) {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url_top_x_search);
@@ -25,13 +24,15 @@
 			$authors = $xml->document[$i]->authors->__toString();
 			$pdf = $xml->document[$i]->pdf->__toString();
 			$bibtex = $url_bibtex.$article_num;
+			$abstract = $xml->document[$i]->abstract->__toString();
 			
 			$article_elem = array();
 			$article_elem["title"] = $title;
-			$article_elem["arnumber"] = $article_num;
+			//$article_elem["arnumber"] = $article_num;
 			$article_elem["authors"] = $authors;
-			$article_elem["pdf"] = $pdf;
+			$article_elem["article"] = $pdf;
 			$article_elem["bibtex"] = $bibtex;
+			$article_elem["abstract"] = $abstract;
 			
 			array_push($articles, $article_elem);
 		}
