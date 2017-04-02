@@ -6,14 +6,14 @@ Initial page that allows one to input search criteria comprised of a researcherâ
 	3) Search bar for the user to specify the top X number of papers (0.1h) - Jason, Mi Hyun - completed 3/29
 When a search is submitted, it should create word cloud of the top X number of papers in the ACM and IEEE digital library that match the provided criteria
 	4) API integration for IEEE digital library (3h) - Jason, Mi Hyun - completed 3/29
-	5) Web scraping for ACM digital library (4h) - Jeffrey, Bryce
+	5) Web scraping for ACM digital library (4h) - Jeffrey, Bryce - completed 3/30
 	6) Integrating both IEEE and ACM results (1h) - Quinn, Taylor
-	7) Parsing for the documents for frequency of the word (2h) - Quinn, Taylor
-	8) API integration for word cloud (1h) - Jason, Mi Hyun
+	7) Parsing for the documents for frequency of the word (2h) - Quinn, Taylor - unnecessary task
+	8) API integration for word cloud (1h) - Jason, Mi Hyun - completed 4/1
 Clicking on a word in the cloud should return a list of papers that mention that word
-	9) Generate list of papers associated with the word clicked (2h) - Jason, Mi Hyun
+	9) Generate list of papers associated with the word clicked (2h) - Jason, Mi Hyun - completed 4/1
 For each paper, provide links to download it from the digital library
-	10) Store link and and display the link next to the associated paper (1h) - Quinn, Taylor
+	10) Store link and and display the link next to the associated paper (1h) - Quinn, Taylor - completed 4/1
 For each paper, provide links to access its bibtex
-	11) Store bibtex link and display the link next to the associated paper (1h) - Jeffrey, Bryce
-	12) Display bibtex (0.1h) -  Jeffrey, Bryce
+	11) Store bibtex link and display the link next to the associated paper (1h) - Jeffrey, Bryce - completed 4/1
+	12) Display bibtex (0.1h) -  Jeffrey, Bryce - completed 4/1
