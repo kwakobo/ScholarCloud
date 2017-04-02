@@ -19,12 +19,14 @@ class PdfParser implements Parser
     	file_put_contents($filename, fopen($article, 'r'));
     	
     	//parse PDF
-    	$this->parser->setFilename('tmp.pdf');
+    	$this->parser->setFilename(dirname(__FILE__).'/tmp.pdf');
 		$this->parser->decodePDF(); 
  		$text = $this->parser->output();
  		
  		//unlink pdf file
  		unlink($filename);
+
+ 		echo $text;
 
 		return new Document($title, $authors, $article, $bibtex, $text);
     }
