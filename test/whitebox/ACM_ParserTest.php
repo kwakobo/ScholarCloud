@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-require './../../src/ACMData/ACM_Parser.php';
+require './../../src/db/ACM_Parser.php';
 
 final class ACMParserTest extends TestCase
 {
