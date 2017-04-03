@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/theme.css">
+		<title>Authors</title>
 	</head>
 	<body>
 		<center>
@@ -17,7 +18,7 @@
 		</center>
 		<script>
 			function check_word_is_in_sentence(sentence, word) {
-				var text = articles[i]['abstract'];
+				var text = articles[i]['text'];
 
 				// replace is from wordfreq.worker.js
 				text = text
@@ -43,7 +44,7 @@
 			for(i = 0; i < articles.length; i++)
 			{
 				// if word is not in article, break
-				if(!check_word_is_in_sentence(articles[i]['abstract'], word_chosen))
+				if(!check_word_is_in_sentence(articles[i]['text'], word_chosen))
 					continue;
 
 				var row = document.createElement("tr");
