@@ -1,5 +1,4 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
 include(dirname(__FILE__)."/../../src/db/documentparser.php");
 use PHPUnit\Framework\TestCase;
 
