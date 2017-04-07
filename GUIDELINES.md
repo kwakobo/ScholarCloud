@@ -6,7 +6,7 @@
 3) Commit implementation
 4) For every bug found during implementation, create a new test case
 5) Look for problems in the code or something to improve upon (refactor) and state the problem or the improve you will be making in a .md file
-6) Commit the fix/improvement for #4
+6) Commit the fix/improvement for #5
 7) If done with specific functionality, implement tests
 7) Run both black box and white box tests and commit the screenshot of the results for ALL tests
 
