@@ -30,5 +30,5 @@
 - Lava flow: class with a lot of code considered dead
 - Poltergeist: class with short life and very few methods in it
 - Golden Hammer: class that doesn't necessarily fit the problem; class not appropriate for the solution
-- Stove pipe - bunch of identical solutions at different place; different methods that do very similar tasks
-- Swiss army knife - code that has tons of different functionalities; complex interface
+- Stove pipe: bunch of identical solutions at different place; different methods that do very similar tasks
+- Swiss army knife: code that has tons of different functionalities; complex interface
