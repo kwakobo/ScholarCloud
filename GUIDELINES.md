@@ -13,17 +13,17 @@
 ## Naming schemes for certain files and file locations
 
 #### Pair Programming Picture
-- mmddyy-name1-name2.jpg
-- Example: 032717-jason-mihyun.jpg
-- commit it under docs/sprint2/PairProgrammingPictures
+- `mmddyy-name1-name2.jpg`
+- Example: `032717-jason-mihyun.jpg`
+- commit it under `docs/sprint2/PairProgrammingPictures`
 #### Refactoring Statement
 - mmddyy-refactoring.md
 - commit it under docs/sprint2/Refactor
 #### Running Tests
-- Each pair should create a directory under the pair's names: docs/sprint2/TestEvidence/name1-name2
-- mmddyy-testtype-testname.jpg
-- Example: 032717-whitebox-search.jpg
-- commit it under the pair's folder in docs/sprint2/TestEvidence/
+- Each pair should create a directory under the pair's names: `docs/sprint2/TestEvidence/name1-name2`
+- `mmddyy-testtype-testname.jpg`
+- Example: `032717-whitebox-search.jpg`
+- commit it under the pair's folder in `docs/sprint2/TestEvidence/`
 
 ## Examples of what you could fix/improve upon while refactoring (from the slides)
 - God Class: one massive class that does tons of different things
