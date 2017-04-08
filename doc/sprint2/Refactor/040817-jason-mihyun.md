@@ -1,0 +1,2 @@
+- Refactoring ACM_Parser.php due to the code being a "God class"
+- The code does tons of different things and we are trying to simplify the code
