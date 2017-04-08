@@ -17,8 +17,8 @@
 - Example: `032717-jason-mihyun.jpg`
 - commit it under `docs/sprint2/PairProgrammingPictures`
 #### Refactoring Statement
-- mmddyy-name1-name2.md
-- commit it under docs/sprint2/Refactor
+- `mmddyy-name1-name2.md`
+- commit it under `docs/sprint2/Refactor`
 #### Running Tests
 - Each pair should create a directory under the pair's names: `docs/sprint2/TestEvidence/name1-name2`
 - `mmddyy-testtype-testname.jpg`
