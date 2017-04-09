@@ -7,6 +7,7 @@
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.1.1.css">
+        <script type="text/javascript" src="./../../src/sortfunctions.js"></script>
 
 		<!-- old code to link js pages 
   		<script type="text/javascript" src="../../src/SongLyrics.js" data-cover></script>
@@ -70,7 +71,7 @@
             QUnit.test("testSortByTitleAscending", function(assert){
                 var data = [{"title":"b"},{"title":"c"},{"title":"a"}];
                 var sortedData = [{"title":"a"},{"title":"b"},{"title":"c"}];
-                
+
                 assert.deepEqual(sort(data, "title", sortEnum.ASCENDING), sortedData);
             })
 
@@ -82,7 +83,7 @@
             })
 
             QUnit.test("testSortByAuthorAscending", function(assert){
-                var data = [{"author":"b"},{"author":"c"},{"author":"c"}];
+                var data = [{"author":"b"},{"author":"c"},{"author":"a"}];
                 var sortedData = [{"author":"a"},{"author":"b"},{"author":"c"}];
 
                 assert.deepEqual(sort(data, "author", sortEnum.ASCENDING), sortedData);
