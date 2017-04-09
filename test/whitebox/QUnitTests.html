@@ -63,6 +63,55 @@
     			}
     			linkTest("www.Shakes.com"); 
     		}); 
+
+            /*
+            *Begin sorting function tests by Jeffrey/Bryce
+            */
+            QUnit.test("testSortByTitleAscending", function(assert){
+                var data = [{"title":"b"},{"title":"c"},{"title":"a"}];
+                var sortedData = [{"title":"a"},{"title":"b"},{"title":"c"}];
+                
+                assert.deepEqual(sort(data, "title", sortEnum.ASCENDING), sortedData);
+            })
+
+            QUnit.test("testSortByTitleDescending", function(assert){
+                var data = [{"title":"b"},{"title":"c"},{"title":"a"}];
+                var sortedData = [{"title":"c"},{"title":"b"},{"title":"a"}];
+
+                assert.deepEqual(sort(data, "title", sortEnum.DESCENDING), sortedData);
+            })
+
+            QUnit.test("testSortByAuthorAscending", function(assert){
+                var data = [{"author":"b"},{"author":"c"},{"author":"c"}];
+                var sortedData = [{"author":"a"},{"author":"b"},{"author":"c"}];
+
+                assert.deepEqual(sort(data, "author", sortEnum.ASCENDING), sortedData);
+            })
+
+            QUnit.test("testSortByAuthorDescending", function(assert){
+                var data = [{"author":"b"},{"author":"c"},{"author":"a"}];
+                var sortedData = [{"author":"c"},{"author":"b"},{"author":"a"}];
+
+                assert.deepEqual(sort(data, "author", sortEnum.DESCENDING), sortedData);
+            })
+
+            QUnit.test("testSortByFrequencyAscending", function(assert){
+                var data = [{"frequency":2},{"frequency":3},{"frequency":1}];
+                var sortedData = [{"frequency":1},{"frequency":2},{"frequency":3}];
+
+                assert.deepEqual(sort(data, "frequency", sortEnum.ASCENDING), sortedData);
+            })
+
+            QUnit.test("testSortByFrequencyDescending", function(assert){
+                var data = [{"frequency":2},{"frequency":3},{"frequency":1}];
+                var sortedData = [{"frequency":3},{"frequency":2},{"frequency":1}];
+
+                assert.deepEqual(sort(data, "frequency", sortEnum.DESCENDING), sortedData);
+            })
+
+            /*
+            *End sorting function tests
+            */
     	</script>
 	</body>
 </html>
