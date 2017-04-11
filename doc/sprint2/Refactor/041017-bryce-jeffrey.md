@@ -1,0 +1,2 @@
+- Refactoring ieee_api.php due to the code being a "God class"
+- The code current code didn't account for flexibility of adding additional features  

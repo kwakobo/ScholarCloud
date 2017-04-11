@@ -38,10 +38,17 @@
 			$this->assertTrue(trim($ieee_resp[1]["bibtex"]) == trim("http://ieeexplore.ieee.org/xpl/downloadCitations?citations-format=citation-only&download-format=download-bibtex&x=0&y=0&recordIds=7816457"));
 		}
 
+		public function testJSONGivesCorrectconferance()
+		{
+			$ieee_resp = get("halfond", 2);
+			$this->assertTrue(trim($ieee_resp[0]["conference"]) == trim("2016 IEEE International Conference on Software Testing, Verification and Validation (ICST)"));
+			$this->assertTrue(trim($ieee_resp[1]["conference"]) == trim("2016 IEEE International Conference on Software Maintenance and Evolution (ICSME)"));
+		}
+
 		/*public function testReturnedResultIsSmallerThanSpecifiedTopNumSearch()
 		{
 			$ieee_resp = get("halfond", 100);
-			$this->assertEquals(count($ieee_resp), 18);
+			$this->assertEquals(count($ieee_resp), 20);
 		}*/
 	}
 ?>
