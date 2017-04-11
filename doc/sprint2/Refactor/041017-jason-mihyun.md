@@ -1,2 +1,2 @@
-- Refactoring acm_api.php due to the code being a "Golden Hammer"
+- Refactoring ACM_Parser.php due to the code being a "Golden Hammer"
 - The code relies on web scraping and we are trying to utilize a more scalable and reliable approach
