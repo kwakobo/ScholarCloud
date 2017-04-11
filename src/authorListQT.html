@@ -1,0 +1,106 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/theme.css">
+		<script type="text/javascript" src="sortfunctions.js"></script>
+		<!-- QUINN AND TAYLOR CODE -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+		<script type="text/javascript">
+		$(function(){
+		  	var elem = document.getElementById("myBar");   
+		  	var width = 0;
+		  	//40 = 4 seconds 
+		  	var id = setInterval(frame, 40);
+		  	function frame() {
+		    if (width >= 100) {
+		      	clearInterval(id);
+		    } else {
+		      	width++; 
+		     	elem.style.width = width + '%'; 
+		     	elem.innerHTML = width * 1  + '%';
+		    	}
+		  	}
+		}); 
+		</script>
+		<title>Authors</title>
+	</head>
+	<body>
+		<div id="myProgress">
+  			<div id="myBar">0%</div>
+		</div>
+		<center>
+			<h1 id="title"></h1>
+			<table id="table">
+				<tr>
+					<th>Paper</th>
+					<th>Download</th>
+					<th>Bibtex</th>
+					<th>Frequency</th> 
+					<th>Authors</th> 
+					<th>Conference</th>
+				</tr>
+			</table>
+		</table>
+		</center>
+		<script>
+			function check_word_is_in_sentence(sentence, word) {
+				var text = articles[i]['text'];
+
+				// replace is from wordfreq.worker.js
+				text = text
+					.replace(/\.+/g, '.') // replace multiple full stops
+					.replace(/(.{3,})\.$/g, '$1') // replace single trailing stop
+					.replace(/n[\'’]t\b/ig, '') // get rid of ~n't
+					.replace(/[\'’](s|ll|d|ve)?\b/ig, '') // get rid of ’ and '
+					.toLowerCase();
+				var regexp = new RegExp('\\b' + word + '\\b');
+				return regexp.exec(text);
+			}
+			function open_url(url) {
+				var win = window.open(url, '_blank');
+				win.focus();
+			}
+			document.getElementById("title").innerHTML = localStorage.word_chosen;
+
+			var table = document.getElementById("table");
+			var word_chosen = localStorage.word_chosen;
+			for(i = 0; i < 3; i++)
+			{
+				// if word is not in article, break
+				//if(!check_word_is_in_sentence(articles[i]['text'], word_chosen))
+				//	continue;
+
+				var row = document.createElement("tr");
+				table.appendChild(row);
+
+				var article = document.createElement("td");
+				var url = document.createElement("td");
+				//url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
+				var bibtex = document.createElement("td");
+				//bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
+				//QUINN AND TAYLOR CODE
+					var frequency = document.createElement("td"); 
+					var authors = document.createElement("td"); 
+					var conferenceName = document.createElement("td");
+
+				row.appendChild(article);
+				row.appendChild(url);
+				row.appendChild(bibtex);
+				//QUINN AND TAYLOR CODE
+				row.appendChild(frequency);
+				row.appendChild(authors);
+				row.appendChild(conferenceName);
+
+				//article.innerHTML = articles[i]['title'];
+				url.innerHTML = "URL";
+				bibtex.innerHTML = "bibtex";
+				//QUINN AND TAYLOR CODE
+					frequency.innerHTML = "1";
+					authors.innerHTML = "Halfond"; 
+					conferenceName.innerHTML = "USC";
+			}
+
+		</script>
+	</body>
+</html>
