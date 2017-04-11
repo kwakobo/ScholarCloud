@@ -11,7 +11,7 @@
 		"publication_type":"PDF",
 		"abstract":"The goal of my work is to improve quality assurance techniques for web applications. I will develop automated techniques for modeling web applications and use these models to improve testing and analysis of web applications.",
 		"conference":"the 2008 Foundations of Software Engineering Doctoral Symposium"
-		},
+	},
 	{
 		"title":"Preventing SQL injection attacks using AMNESIA",
 		"authors":"Alessandro Orso",
