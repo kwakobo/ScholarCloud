@@ -13,6 +13,9 @@
 					<th>Paper</th>
 					<th>Download</th>
 					<th>Bibtex</th>
+					<th>Frequency</th> 
+					<th>Authors</th> 
+					<th>Conference</th>
 				</tr>
 			</table>
 		</table>
@@ -56,14 +59,23 @@
 				url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
 				var bibtex = document.createElement("td");
 				bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
+				var frequency = document.createElement("td"); 
+				var authors = document.createElement("td"); 
+				var conferenceName = document.createElement("td");
 
 				row.appendChild(article);
 				row.appendChild(url);
 				row.appendChild(bibtex);
+				row.appendChild(frequency);
+				row.appendChild(authors);
+				row.appendChild(conferenceName);
 
 				article.innerHTML = articles[i]['title'];
 				url.innerHTML = "URL";
 				bibtex.innerHTML = "bibtex";
+				frequency.innerHTML = "1";
+				authors.innerHTML = "Halfond"; 
+				conferenceName.innerHTML = "USC";
 			}
 
 		</script>
