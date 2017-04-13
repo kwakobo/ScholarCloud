@@ -15,5 +15,5 @@
 
 	$output = array_merge_recursive($docparser->parseDocuments(), $ieee);
 
-	echo json_encode($docparser->parseDocuments());
+	echo json_encode($output);
 ?>
