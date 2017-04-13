@@ -77,7 +77,7 @@ class ACM_API
 
 			// add commas between names;
 			if($i != $size - 1)
-				$author_single_string = $author_single_string.", ";
+				$author_single_string = $author_single_string.";  ";
 		}
 
 		return $author_single_string;

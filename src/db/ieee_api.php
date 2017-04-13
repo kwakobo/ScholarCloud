@@ -72,6 +72,7 @@
 			$article_elem["conference"] = getConference($xml,$i);
 			//$article_elem["publication_type"] = "PDF";
 			$article_elem["abstract"] = getAbstract($xml,$i);
+			$article_elem["text"] = getAbstract($xml,$i);
 
 			array_push($articles, $article_elem);
 		}

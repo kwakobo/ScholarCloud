@@ -8,20 +8,20 @@
 		<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 		<script type="text/javascript">
 		$(function(){
-		  	var elem = document.getElementById("myBar");   
-		  	var width = 0;
-		  	//40 = 4 seconds 
-		  	var id = setInterval(frame, 40);
-		  	function frame() {
-		    if (width >= 100) {
-		      	clearInterval(id);
-		    } else {
-		      	width++; 
-		     	elem.style.width = width + '%'; 
-		     	elem.innerHTML = width * 1  + '%';
-		    	}
-		  	}
-		}); 
+			var elem = document.getElementById("myBar");
+			var width = 0;
+			//40 = 4 seconds 
+			var id = setInterval(frame, 40);
+			function frame() {
+				if (width >= 100) {
+					clearInterval(id);
+				} else {
+					width++; 
+					elem.style.width = width + '%';
+					elem.innerHTML = width * 1  + '%';
+				}
+			}
+		});
 		</script>
 		<title>Authors</title>
 	</head>
@@ -44,8 +44,17 @@
 		</table>
 		</center>
 		<script>
-			function check_word_is_in_sentence(sentence, word) {
-				var text = articles[i]['text'];
+			// INPUT: 'William G. J. Halfond, Alessandro Orso'
+			function parse_authors(authors)
+			{
+				return authors.split(';  ');
+			}
+			function word_freq(sentence, word)
+			{
+				var counter = 0;
+				var text = sentence;
+				var array = [];
+				var index = -1;
 
 				// replace is from wordfreq.worker.js
 				text = text
@@ -54,8 +63,15 @@
 					.replace(/n[\'’]t\b/ig, '') // get rid of ~n't
 					.replace(/[\'’](s|ll|d|ve)?\b/ig, '') // get rid of ’ and '
 					.toLowerCase();
-				var regexp = new RegExp('\\b' + word + '\\b');
-				return regexp.exec(text);
+
+				do {
+					index = text.indexOf(word, index + 1);
+					if (index != -1) {
+						array[counter++] = index;
+						//i = index;
+					}
+				} while (index != -1);
+				return counter;
 			}
 			function open_url(url) {
 				var win = window.open(url, '_blank');
@@ -65,24 +81,33 @@
 
 			var table = document.getElementById("table");
 			var word_chosen = localStorage.word_chosen;
-			for(i = 0; i < 3; i++)
+			var articles = JSON.parse(localStorage.articles);
+			
+			var i;
+
+			for(i = 0; i < articles.length; i++)
 			{
-				// if word is not in article, break
-				//if(!check_word_is_in_sentence(articles[i]['text'], word_chosen))
-				//	continue;
+				console.log(i);
+				console.log(articles[i]);
+				// if word freq in article is 0, break
+				wordfreq = word_freq(articles[i]['text'], word_chosen);
+				if(wordfreq == 0)
+					continue;
+				console.log(wordfreq);
+				
 
 				var row = document.createElement("tr");
 				table.appendChild(row);
 
 				var article = document.createElement("td");
 				var url = document.createElement("td");
-				//url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
+				url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
 				var bibtex = document.createElement("td");
-				//bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
+				bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
 				//QUINN AND TAYLOR CODE
-					var frequency = document.createElement("td"); 
-					var authors = document.createElement("td"); 
-					var conferenceName = document.createElement("td");
+				var frequency = document.createElement("td"); 
+				var authors = document.createElement("td"); 
+				var conferenceName = document.createElement("td");
 
 				row.appendChild(article);
 				row.appendChild(url);
@@ -92,13 +117,26 @@
 				row.appendChild(authors);
 				row.appendChild(conferenceName);
 
-				//article.innerHTML = articles[i]['title'];
+				article.innerHTML = articles[i]['title'];
 				url.innerHTML = "URL";
 				bibtex.innerHTML = "bibtex";
 				//QUINN AND TAYLOR CODE
-					frequency.innerHTML = "1";
-					authors.innerHTML = "Halfond"; 
-					conferenceName.innerHTML = "USC";
+				frequency.innerHTML = wordfreq;
+				authors_list = parse_authors(articles[i]['authors']);
+				for(j = 0; j < authors_list.length; j++)
+				{
+					console.log(authors_list[j]);
+					author_href = document.createElement("a");
+					authors.appendChild(author_href);
+					author_href.setAttribute("href", "Need to make word cloud href");
+					author_href.innerHTML = authors_list[j];
+					author_break = document.createElement("br");
+					authors.appendChild(author_break);
+				}
+				conference_href = document.createElement("a");
+				conference_href.innerHTML = articles[i]['conference'];
+				conference_href.setAttribute("href", "Need to make word cloud href")
+				conferenceName.appendChild(conference_href);
 			}
 
 		</script>

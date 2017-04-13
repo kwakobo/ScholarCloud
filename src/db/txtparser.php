@@ -5,11 +5,11 @@ include_once 'document.php';
 
 class TxtParser implements Parser
 {
-	public function parse($title, $authors, $article, $bibtex)
+	public function parse($title, $authors, $article, $bibtex, $abstract, $conference)
 	{
 		$text = file_get_contents($article);
 		
-		return new Document($title, $authors, $article, $bibtex, $text);
+		return new Document($title, $authors, $article, $bibtex, $text, $abstract, $conference);
 	}
 }
 
