@@ -8,6 +8,8 @@
 		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.1.1.css">
         <script type="text/javascript" src="./../../src/sortfunctions.js"></script>
+        <script type="text/javascript" src="canvasTests.js"></script>
+        <script type="text/javascript" src="../../src/include/authorList.js"></script>
 
 		<!-- old code to link js pages 
   		<script type="text/javascript" src="../../src/SongLyrics.js" data-cover></script>
@@ -29,41 +31,27 @@
     		QUnit.test("checkAuthor", function( assert ) {
     			//run our function on author, compare to expectedResult
     			function authorTest(author, expectedResult) {
-    				assert.equal(getAuthor(author), expectedResult); 
+    				assert.deepEqual(parse_authors(author), expectedResult); 
     			}
-    			authorTest("Shakes", "Shakes"); 
-    		});
-    		//Correct Paper, checks if func returns expected title
-    		QUnit.test("checkPaperTitle", function( assert ) {
-    			//run our function on title, compare to expectedResult
-    			function paperTest(title, expectedResult) {
-    				assert.equal(getPaperTitle(title), expectedResult); 
-    			}
-    			paperTest("Shakes", "Shakes"); 
+    			authorTest("Shakes", ["Shakes"]); 
+                authorTest("Shakes;  Halfond", ["Shakes", "Halfond"]);
+                authorTest("Shakes;  Halfond;  Shakes", ["Shakes", "Halfond", "Shakes"]);
     		});
     		//Correct Link, checks if func researches correct link
     		QUnit.test("checkLink", function( assert ) {
     			//run our function on link, compare to expectedResult
     			function linkTest(link, expectedResult) {
-    				assert.equal(getPaper(link), expectedResult); 
+    				assert.equal(open_urlTest(link), expectedResult); 
     			}
     			linkTest("Shakes", "www.Shakes.com"); 
     		});
-    		//Correct Frequency of Word
-    		QUnit.test("checkWordFrequency", function( assert ) {
-    			//run our function on author, compare to expectedResult
-    			function authorTest(word, expectedResult) {
-    				assert.equal(getFrequency(word), expectedResult); 
-    			}
-    			authorTest("Shakes", 3); 
-    		});
-    		//Check if link is there 
-    		QUnit.test("isThereLink", function( assert ) {
-    			function linkTest(expectedResult) {
-    				assert.equal(getCurrentLink(), expectedResult);
-    			}
-    			linkTest("www.Shakes.com"); 
-    		}); 
+            //Check if canvas download link is correct
+            QUnit.test("isCanvasLinkRight", function( assert ) {
+                function canvasTest(expectedResult) {
+                    assert.equal(dlCanvasTest(), expectedResult); 
+                }
+                canvasTest("data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=canvas.png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAEYklEQVR4Xu3UAQkAAAwCwdm/9HI83BLIOdw5AgQIRAQWySkmAQIEzmB5AgIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlACBB1YxAJfjJb2jAAAAAElFTkSuQmCC");
+            });
 
             /*
             *Begin sorting function tests by Jeffrey/Bryce

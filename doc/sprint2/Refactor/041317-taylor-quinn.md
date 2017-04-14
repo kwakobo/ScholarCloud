@@ -1,0 +1,2 @@
+- Refactoring authorListQT.html due to the code being a "God class"
+- The code currently has all javascript functions, we seperated them into their own .js file for simplicity
