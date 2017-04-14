@@ -1,4 +1,3 @@
- <!DOCTYPE html>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/theme.css">
@@ -7,6 +6,19 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 		<title>Authors</title>
 	</head>
+	<footer>
+		<form id="search_form" method="post">
+			<input type="hidden" id="word_clicked" name="word_clicked">
+			<input type="hidden" id="titles" name="titles">
+			<input type="hidden" id="authors" name="authors">
+			<input type="hidden" id="conferences" name="conferences">
+			<input type="hidden" id="frequencies" name="frequencies">
+			<input type="hidden" id="pdfs" name="pdfs">
+			<input type="hidden" id="bibtexs" name="bibtexs">
+			<input type="submit" id="exportpdf" value="Export To PDF" formaction="export.php?form=pdf">
+			<input type="submit" id="exporttxt" value="Export To Plain Text" formaction="export.php?form=txt">
+		</form>
+	</footer>
 	<body>
 		<center>
 			<h1 id="title"></h1>
@@ -15,21 +27,36 @@
 					<th>Paper</th>
 					<th>Download</th>
 					<th>Bibtex</th>
-					<th>Frequency</th> 
-					<th>Authors</th> 
+					<th>Frequency</th>
+					<th>Authors</th>
 					<th>Conference</th>
 				</tr>
 			</table>
 		</table>
 		</center>
 		<script>
-			// INPUT: 'William G. J. Halfond, Alessandro Orso'
+			function add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array)
+			{
+				console.log("adding");
+				document.getElementById("word_clicked").value = word_chosen;
+				document.getElementById("titles").value = titles_array;
+				document.getElementById("authors").value = authors_array;
+				document.getElementById("conferences").value = conferences_array;
+				document.getElementById("frequencies").value = frequencies_array;
+				document.getElementById("pdfs").value = pdfs_array;
+				document.getElementById("bibtexs").value = bibtexs_array;
+			}
+
+			// INPUT: 'William G. J. Halfond,  Alessandro Orso'
+			// OUTPUT: ['William G. J. Halfond', 'Alessandro Orso']
+			// NOTE: Two spaces between values
 			function parse_authors(authors)
 			{
 				return authors.split(';  ');
 			}
 			function word_freq(sentence, word)
 			{
+				word = word.toLowerCase();
 				var counter = 0;
 				var text = sentence;
 				var array = [];
@@ -64,16 +91,27 @@
 			
 			var i;
 
+			var titles_array = [];
+			var authors_array = [];
+			var conferences_array = [];
+			var frequencies_array = [];
+			var pdfs_array = [];
+			var bibtexs_array = [];
+
 			for(i = 0; i < articles.length; i++)
 			{
-				console.log(i);
-				console.log(articles[i]);
 				// if word freq in article is 0, break
 				wordfreq = word_freq(articles[i]['text'], word_chosen);
 				if(wordfreq == 0)
 					continue;
-				console.log(wordfreq);
-				
+
+				// Adding to forms array
+				titles_array.push(articles[i]['title']);
+				authors_array.push(articles[i]['authors']);
+				conferences_array.push(articles[i]['conference']);
+				frequencies_array.push(wordfreq);
+				pdfs_array.push(articles[i]['article']);
+				bibtexs_array.push(articles[i]['bibtex']);
 
 				var row = document.createElement("tr");
 				table.appendChild(row);
@@ -111,7 +149,6 @@
 				authors_list = parse_authors(articles[i]['authors']);
 				for(j = 0; j < authors_list.length; j++)
 				{
-					console.log(authors_list[j]);
 					author_href = document.createElement("a");
 					authors.appendChild(author_href);
 					author_href.setAttribute("href", "Need to make word cloud href");
@@ -125,6 +162,7 @@
 				conferenceName.appendChild(conference_href);
 			}
 
+			add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array);
 		</script>
 	</body>
 </html>
