@@ -46,3 +46,20 @@ footer {
 #canvasDownloadButton {
 	background-color: green; 
 }
+.alert-main-container {
+	width: 400px; 
+  	float: left;
+  	position: relative;
+  	left: 50%;
+}
+#alert-fixer-container {
+	border: 5px solid black; 
+	padding: 20px; 
+	text-align: center; 
+	color: white; 
+	width: 400px; 
+ 	background-color: rgba(0,0,0,0.7);  
+  	float: left;
+  	position: relative;
+  	left: -50%;
+}

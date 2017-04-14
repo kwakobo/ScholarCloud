@@ -19,7 +19,7 @@
 			<input type="submit" id="exporttxt" value="Export To Plain Text" formaction="export.php?form=txt">
 		</form>
 	</footer>
-	<body>
+	<body>	
 		<center>
 			<h1 id="title"></h1>
 			<table id="table">
@@ -34,6 +34,11 @@
 			</table>
 		</table>
 		</center>
+		<div class="alert-main-container">
+		  <div id="alert-fixer-container">
+		  		hehelksadasjndsanjk
+		  </div>
+		</div>
 		<script>
 			function add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array)
 			{
@@ -83,6 +88,22 @@
 				var win = window.open(url, '_blank');
 				win.focus();
 			}
+			//Check which words to highlight 
+			function checkHighlight(abstract) {
+				// for each word, check if we need to highlight
+				for (var q = 0; q < abstract.length; q++) {
+					var trimmedWord = lyricsSplitArray[q].trim();
+					var moreTrimmedWord = word.split(",");
+					var newWord = moreTrimmedWord[0];
+					if (trimmedWord.toUpperCase() === newWord.toUpperCase()) {
+						// highlight chosen word
+						$("#lyrics").append("<span style=background-color:#FFFF00>" + trimmedWord + "</span> "); 
+					}
+					else {
+						$("#lyrics").append(trimmedWord + ' '); 
+					}
+				}
+			}
 			document.getElementById("title").innerHTML = localStorage.word_chosen;
 
 			var table = document.getElementById("table");
@@ -117,6 +138,10 @@
 				table.appendChild(row);
 
 				var article = document.createElement("td");
+				var abstract = articles[i]['abstract']; 
+				console.log(abstract);
+	
+				article.setAttribute("onclick","document.getElementById('alert-fixer-container').innerHTML = '" + articles[i]['abstract'] + "';"); 
 				var url = document.createElement("td");
 				url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
 				var bibtex = document.createElement("td");
@@ -161,6 +186,9 @@
 				conference_href.setAttribute("href", "Need to make word cloud href")
 				conferenceName.appendChild(conference_href);
 			}
+			//move alert for abstract up!
+			var topLength = articles.length*60*-1 + "px"; 
+			//$('.alert-main-container').css("top",topLength);
 
 			add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array);
 		</script>
