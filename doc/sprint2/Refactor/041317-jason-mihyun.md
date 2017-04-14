@@ -1,0 +1,2 @@
+- Refactoring `src/authorlist.html`
+- The code dead and has been replaced with authorListQT.html with more features. It is no longer neccessary and is considered lava flow.
