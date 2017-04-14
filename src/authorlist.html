@@ -88,22 +88,19 @@
 				var win = window.open(url, '_blank');
 				win.focus();
 			}
-			//Check which words to highlight 
-			function checkHighlight(abstract) {
-				// for each word, check if we need to highlight
-				for (var q = 0; q < abstract.length; q++) {
-					var trimmedWord = lyricsSplitArray[q].trim();
-					var moreTrimmedWord = word.split(",");
-					var newWord = moreTrimmedWord[0];
-					if (trimmedWord.toUpperCase() === newWord.toUpperCase()) {
-						// highlight chosen word
-						$("#lyrics").append("<span style=background-color:#FFFF00>" + trimmedWord + "</span> "); 
-					}
-					else {
-						$("#lyrics").append(trimmedWord + ' '); 
+			//sets abstract box and highlights word
+			function setAbstract(abstractText) {
+				var chosenWord = localStorage.word_chosen;
+				var abstractArray = abstractText.split(" "); 
+				for (var i=0; i<abstractArray.length; i++) {
+					if (abstractArray[i].toUpperCase() == chosenWord.toUpperCase()) {
+						abstractArray[i] = "<span style=color:#FFFF00>" + chosenWord + "</span> "; 
 					}
 				}
+				var str = abstractArray.toString();
+				document.getElementById('alert-fixer-container').innerHTML = str.replace(/,/g," ");
 			}
+
 			document.getElementById("title").innerHTML = localStorage.word_chosen;
 
 			var table = document.getElementById("table");
@@ -140,8 +137,7 @@
 				var article = document.createElement("td");
 				var abstract = articles[i]['abstract']; 
 				console.log(abstract);
-	
-				article.setAttribute("onclick","document.getElementById('alert-fixer-container').innerHTML = '" + articles[i]['abstract'] + "';"); 
+				article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'] + "')"); 
 				var url = document.createElement("td");
 				url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
 				var bibtex = document.createElement("td");
