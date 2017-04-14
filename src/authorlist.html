@@ -2,6 +2,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/theme.css">
 		<script type="text/javascript" src="sortfunctions.js"></script>
+		<script type="text/javascript" src="include/authorList.js"></script>
 		<!-- QUINN AND TAYLOR CODE -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 		<title>Authors</title>
@@ -36,7 +37,7 @@
 		</center>
 		<div class="alert-main-container">
 		  <div id="alert-fixer-container">
-		  		hehelksadasjndsanjk
+		  		
 		  </div>
 		</div>
 		<script>
@@ -92,11 +93,7 @@
 			function setAbstract(abstractText) {
 				var chosenWord = localStorage.word_chosen;
 				var abstractArray = abstractText.split(" "); 
-				for (var i=0; i<abstractArray.length; i++) {
-					if (abstractArray[i].toUpperCase() == chosenWord.toUpperCase()) {
-						abstractArray[i] = "<span style=color:#FFFF00>" + chosenWord + "</span> "; 
-					}
-				}
+				abstractArray = checkHighlight(abstractArray,chosenWord);
 				var str = abstractArray.toString();
 				document.getElementById('alert-fixer-container').innerHTML = str.replace(/,/g," ");
 			}

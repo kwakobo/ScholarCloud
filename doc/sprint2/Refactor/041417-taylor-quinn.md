@@ -1,0 +1,2 @@
+- Refactoring authorlist.html due to the code being a "Stove Pipe"
+- The code had identical functions that could be combined into one call of multiple (got rid of duplicate code)

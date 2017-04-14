@@ -34,3 +34,11 @@ function open_url(url) {
 function open_urlTest(url) {
 	return "www."+url+".com";
 }
+function checkHighlight(abstractArray, chosenWord) {
+	for (var i=0; i<abstractArray.length; i++) {
+		if (abstractArray[i].toUpperCase() == chosenWord.toUpperCase()) {
+			abstractArray[i] = "<span style=color:#FFFF00>" + chosenWord + "</span> "; 
+		}
+	}
+	return abstractArray;
+}
