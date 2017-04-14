@@ -10,13 +10,7 @@
         <script type="text/javascript" src="./../../src/sortfunctions.js"></script>
         <script type="text/javascript" src="canvasTests.js"></script>
         <script type="text/javascript" src="../../src/include/authorList.js"></script>
-
-		<!-- old code to link js pages 
-  		<script type="text/javascript" src="../../src/SongLyrics.js" data-cover></script>
-  		<script type="text/javascript" src="../../src/SongList.js" data-cover></script>
-  		<script type="text/javascript" src="../../src/AutoComplete.js" data-cover></script>
-  		-->
-
+        <script type="text/javascript" src="./../../src/autocomplete.js"></script>
 	</head>
 	<body>
     	<div id="qunit"></div>
@@ -100,6 +94,29 @@
 
             /*
             *End sorting function tests
+            */
+
+            /*
+            *begin autocomplete.js / previous searches tests
+            */
+
+            QUnit.test("testAddToPreviousSearches", function(assert){
+                localStorage.clear(); //clear localstorage for test cases
+                window.previousSearches = [];
+                addToPreviousSearches("William Halfond");
+                assert.deepEqual(JSON.parse(localStorage.getItem('previousSearches')), ["William Halfond"]);
+            })
+
+            QUnit.test("testAddToPreviousSearchesTwice", function(assert){
+                localStorage.clear(); // clear localstorage for test cases
+                window.previousSearches = [];
+                addToPreviousSearches("William Halfond");
+                addToPreviousSearches("Bryce Roski");
+                assert.deepEqual(JSON.parse(localStorage.getItem('previousSearches')), ["William Halfond", "Bryce Roski"]);
+            })
+
+            /*
+            *end autocomplete.js / previous searches tests
             */
     	</script>
 	</body>
