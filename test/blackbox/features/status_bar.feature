@@ -9,4 +9,4 @@ Scenario: Status bar should be rectangular
 
 Scenario: Status bar should load 
 	Given I clicked the search button on the search page
-	The status bar should load
+	Then the status bar should load
