@@ -87,6 +87,11 @@
 				var frequency = document.createElement("td"); 
 				var authors = document.createElement("td"); 
 				var conferenceName = document.createElement("td");
+				var checkboxSpot = document.createElement("td");
+				var checkbox = document.createElement('input');
+				checkbox.type = "checkbox";
+				checkbox.name = "shouldInclude";
+				checkbox.value = "value";
 
 				row.appendChild(article);
 				row.appendChild(url);
@@ -95,12 +100,14 @@
 				row.appendChild(frequency);
 				row.appendChild(authors);
 				row.appendChild(conferenceName);
+				row.appendChild(checkbox);
 
 				article.innerHTML = articles[i]['title'];
 				url.innerHTML = "URL";
 				bibtex.innerHTML = "bibtex";
 				//QUINN AND TAYLOR CODE
 				frequency.innerHTML = wordfreq;
+				checkboxSpot.innerHTML = checkbox;
 				authors_list = parse_authors(articles[i]['authors']);
 				for(j = 0; j < authors_list.length; j++)
 				{
