@@ -1,0 +1,2 @@
+- Refactoring authorListQT.html due to the code being a "Golden Hammer"
+- The code didn't fit the whole problem/functionality, made the all paper data dynamic instead of hard coded
