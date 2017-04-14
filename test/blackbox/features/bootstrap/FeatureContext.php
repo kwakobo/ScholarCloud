@@ -20,13 +20,19 @@ class FeatureContext extends BehatContext
 		$capabilities = DesiredCapabilities::firefox();
 		$this->driver = RemoteWebDriver::create($this->host, $capabilities, 5000);
 	}
+	
+	/** @AfterScenario */
+	public function tearDown()
+	{
+		$this->driver->quit();
+	}
 
 	/**
-	 * @Given /^I am on the list of papers web page$/
+	 * @Given /^giI am on the list of papers web page$/
 	 */
 	public function iAmOnTheListOfPapersWebPage()
 	{
-		$this->driver->get("http://localhost:8000/search.html");
+		$this->driver->get("http://localhost:8000/index.html");
 
 		$search_input = $this->driver->findElement(WebDriverBy::id("au"));
 		$search_input->sendKeys("halfond");
@@ -176,7 +182,7 @@ class FeatureContext extends BehatContext
 	 */
 	public function iProvidedResearcherSLastNameAndTopXNumberOfPapers()
 	{
-		$this->driver->get("http://localhost:8000/search.html");
+		$this->driver->get("http://localhost:8000/index.html");
 
 		$search_input = $this->driver->findElement(WebDriverBy::id("au"));
 		$search_input->sendKeys("halfond");
@@ -228,7 +234,7 @@ class FeatureContext extends BehatContext
 	 */
 	public function thatAWordCloudIsGenerated()
 	{
-		$this->driver->get("http://localhost:8000/search.html");
+		$this->driver->get("http://localhost:8000/index.html");
 
 		$search_input = $this->driver->findElement(WebDriverBy::id("au"));
 		$search_input->sendKeys("halfond");

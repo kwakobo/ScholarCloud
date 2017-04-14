@@ -5,4 +5,4 @@ Feature: frequency
 
 Scenario: Frequency of words for a paper
 	Given I am on the list of papers page
-	I should see frequency of the word clicked for each paper
+	Then I should see frequency of the word clicked for each paper
