@@ -98,20 +98,21 @@
 		<div id="myProgress">
   			<div id="myBar">0%</div>
 		</div>
-		<button type="button" id="canvasDownloadButton"><a download = "canvas.png" href = "#"> Download Canvas! </a>/</button>
+		<button type="button" id="canvasDownloadButton"><a id="dl" download = "canvas.png" href = "#"> Download Canvas!</a> </button>
 		<script>
-			$("#canvasDownloadButton").on("click", function() {
-				var canvas = document.getElementById("my_canvas");
+			function dlCanvas() {
+				var canvas = document.getElementById("my_canvas", 1.0);
 				var ctx = canvas.getContext("2d");
   				var dt = canvas.toDataURL('image/png');
   				/* Change MIME type to trick the browser to downlaod the file instead of displaying it */
   				dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
 
   				/* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
-  				dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
+  				dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=canvas.png');
 
   				this.href = dt;
 			};
+			document.getElementById("dl").addEventListener('click',dlCanvas, false); 
 		</script>
 	</body>
 </html>

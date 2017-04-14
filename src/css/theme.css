@@ -32,3 +32,10 @@ header {
   line-height: 30px;
   color: white;
 }
+#dl {
+	text-decoration: none; 
+	color: white; 
+}
+#canvasDownloadButton {
+	background-color: green; 
+}
