@@ -1,0 +1,2 @@
+- Refactoring `src/db/search.php`
+- The code dead and has been modified to rely less on 3rd party databases. This file has been updated because it is considered a case of Golden Hammer.
