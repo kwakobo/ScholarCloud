@@ -1,0 +1,445 @@
+Feature: abstract
+  In order to have an abstract for a paper
+  As a user
+  I need to see an abstract
+
+  Scenario: Title of paper should be clickable    # features/abstract.feature:6
+    Given I am on the list of papers web page
+    Then the title of a paper should be clickable
+
+  Scenario: Click on title should show abstract         # features/abstract.feature:10
+    Given I am on the list of papers web page
+    When I click on a paper's title
+    Then I should see an abstract for the title clicked
+
+  Scenario: Abstract is highlighted                                                 # features/abstract.feature:15
+    Given I am on the abstract web page
+    Then the word clicked from the word cloud should be highlighted in the abstract
+
+Feature: conference search
+  In order to generate a new word cloud based on a conference
+  As a user
+  I need to see the conference name for a paper
+
+  Scenario: Conference name should be clickable                                     # features/conference_search.feature:6
+    Given I am on the list of papers web page
+    Then the conference name for a paper should be clickable
+
+  Scenario: Click on conference name generates word cloud                                     # features/conference_search.feature:10
+    Given I am on the list of papers web page
+    When I click on a conference name for a paper
+    Then a new word cloud should be generated based on all papers from the conference clicked
+
+Feature: export list
+  In order to have a list of papers as PDFS and plain text
+  As a user
+  I need to export a list of papers as PDFs and plain text
+
+  Scenario: Export list as PDF                                                                # features/export_list.feature:6
+    Given I am on the list of papers web page
+    When I click on the PDF button
+    Then a list of papers should be downloaded as PDF
+
+  Scenario: Export list as plain text                                                         # features/export_list.feature:11
+    Given I am on the list of papers web page
+    When I click on the plain text button
+    Then a list of papers should be downloaded as plain text
+
+Feature: frequency
+  In order to have a frequency of the word clicked on the list of papers web page
+  As a user
+  I need to see a frequency of the word clicked associated with each paper
+
+  Scenario: Frequency of words for a paper                                                    # features/frequency.feature:6
+    Given I am on the list of papers page
+    Then I should see frequency of the word clicked for each paper
+
+Feature: image download
+  In order to have an image of the word cloud
+  As a user
+  I need to download the word cloud as an image
+
+  Scenario: Image is downloadable                                                             # features/image_download.feature:6
+    Given I am on the word cloud web page and a word cloud has been generated
+    When I click download button
+    Then the image of the word cloud should be downloaded
+
+Feature: List of papers
+  In order to have a list of papers
+  As a user
+  I need to see a list of papers
+
+  Scenario: List of papers should be visible                                                  # features/list_of_papers.feature:6
+    Given I am on the list of papers web page
+    Then list of papers should be visible                                                     # FeatureContext::listOfPapersShouldBeVisible()
+
+  Scenario: Each paper should have a download link                                            # features/list_of_papers.feature:10
+    Given I am on the list of papers web page
+    Then each paper should have a download link from the ACM and IEEE digital library         # FeatureContext::eachPaperShouldHaveADownloadLinkFromTheAcmAndIeeeDigitalLibrary()
+
+  Scenario: Each paper should have a link to access its bibtex                                    # features/list_of_papers.feature:14
+    Given I am on the list of papers web page
+    Then each paper should have a link to access its bibtex from the ACM and IEEE digital library # FeatureContext::eachPaperShouldHaveALinkToAccessItsBibtexFromTheAcmAndIeeeDigitalLibrary()
+
+Feature: new author search
+  In order to generate a new author search for a paper
+  As a user
+  I need to see a list of authors for a paper
+
+  Scenario: Author should be clickable                                                            # features/new_author_search.feature:6
+    Given I am on the list of papers web page
+    Then an author in the author list for a paper should be clickable
+
+  Scenario: Click on author generates new word cloud                                              # features/new_author_search.feature:10
+    Given I am on the list of papers web page
+    When I click on an author in the author list
+    Then a new word cloud should be generated with that author's papers
+
+Feature: previous searches
+  In order to access previously entered searches
+  As a user
+  I need to see previously entered searches
+
+  Scenario: Access previously entered searches                                                    # features/previous_searches.feature:6
+    Given I am on the initial search page
+    When I click on the text box
+    Then I should see previously entered searches as a drop down list
+
+Feature: Search UI
+  In order to search for a researcher
+  As a user
+  I need to be able to input search criteria comprised of a researcher's last name
+
+  Scenario: Search bar should be visible                                                          # features/search_ui.feature:6
+    Given I am on "http://localhost:8000/index.html"                                              # FeatureContext::iAmOn()
+    Then search bar should be visible                                                             # FeatureContext::searchBarShouldBeVisible()
+
+  Scenario: Search bar should be editable                                                         # features/search_ui.feature:10
+    Given I am on "http://localhost:8000/index.html"                                              # FeatureContext::iAmOn()
+    Then search bar should be editable                                                            # FeatureContext::searchBarShouldBeEditable()
+
+  Scenario: Search button should be visible                                                       # features/search_ui.feature:14
+    Given I am on "http://localhost:8000/index.html"                                              # FeatureContext::iAmOn()
+    Then search button should be visible                                                          # FeatureContext::searchButtonShouldBeVisible()
+
+  Scenario: Search button should be clickable                                                     # features/search_ui.feature:18
+    Given I am on "http://localhost:8000/index.html"                                              # FeatureContext::iAmOn()
+    Then search button should be clickable                                                        # FeatureContext::searchButtonShouldBeClickable()
+
+  Scenario: Top X number of results search criteria bar should be visible                         # features/search_ui.feature:22
+    Given I am on "http://localhost:8000/index.html"                                              # FeatureContext::iAmOn()
+    Then top number bar should be visible                                                         # FeatureContext::topNumberBarShouldBeVisible()
+
+  Scenario: Top X number of results search criteria bar should be editable                        # features/search_ui.feature:26
+    Given I am on "http://localhost:8000/index.html"                                              # FeatureContext::iAmOn()
+    Then top number bar should be editable                                                        # FeatureContext::topNumberBarShouldBeEditable()
+
+Feature: status bar
+  In order to have a status bar
+  As a user
+  I need to see a status bar
+
+  Scenario: Status bar should be rectangular                                                      # features/status_bar.feature:6
+    Given I clicked the search button on the search page
+    Then the status bar should be rectangular
+
+  Scenario: Status bar should load                                                                # features/status_bar.feature:10
+    Given I clicked the search button on the search page
+    Then the status bar should load
+
+Feature: subset search
+  In order to generate a new word cloud with a subset of papers
+  As a user
+  I need to select a subset of papers to generate a new word cloud
+
+  Scenario: Select subset of papers                                                               # features/subset_search.feature:6
+    Given that I am on the list of papers web page
+    Then I should be able to click on a subset of papers
+
+  Scenario: Generate new word cloud with subset of papers                                         # features/subset_search.feature:10
+    Given that I am on the list of papers web page and a subset of papers are selected
+    When I click generate button
+    Then a new word cloud with the papers selected should be generated
+
+Feature: word cloud
+  In order to have a word cloud
+  As a user
+  I need to see a word cloud that matches the search criteria
+
+  Scenario: Word cloud should be visible                                                          # features/wordcloud.feature:6
+    Given I provided researcher's last name and top X number of papers                            # FeatureContext::iProvidedResearcherSLastNameAndTopXNumberOfPapers()
+    When I click the search button                                                                # FeatureContext::iClickTheSearchButton()
+    Then word cloud should be visible                                                             # FeatureContext::wordCloudShouldBeVisible()
+
+  Scenario: Word cloud should have top X number of papers from ACM and IEEE digital library       # features/wordcloud.feature:11
+    Given I provided researcher's last name and top X number of papers                            # FeatureContext::iProvidedResearcherSLastNameAndTopXNumberOfPapers()
+    When I click the search button                                                                # FeatureContext::iClickTheSearchButton()
+    Then I should see a word cloud with top X number of papers from ACM and IEEE digital library  # FeatureContext::iShouldSeeAWordCloudWithTopXNumberOfPapersFromAcmAndIeeeDigitalLibrary()
+
+  Scenario: Words on the word cloud should be clickable                                              # features/wordcloud.feature:16
+    Given that a word cloud is generated                                                             # FeatureContext::thatAWordCloudIsGenerated()
+    When I click on a word in the word cloud                                                         # FeatureContext::iClickOnAWordInTheWordCloud()
+    Then I should be redirected to a web page with a list of papers associated with the word clicked # FeatureContext::iShouldBeRedirectedToAWebPageWithAListOfPapersAssociatedWithTheWordClicked()
+
+28 scenarios (9 passed, 19 undefined)
+67 steps (21 passed, 3 skipped, 43 undefined)
+1m9.814s
+
+You can implement step definitions for undefined steps with these snippets:
+
+    /**
+     * @Given /^I am on the list of papers web page$/
+     */
+    public function iAmOnTheListOfPapersWebPage2()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^the title of a paper should be clickable$/
+     */
+    public function theTitleOfAPaperShouldBeClickable()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I click on a paper\'s title$/
+     */
+    public function iClickOnAPaperSTitle()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see an abstract for the title clicked$/
+     */
+    public function iShouldSeeAnAbstractForTheTitleClicked()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^I am on the abstract web page$/
+     */
+    public function iAmOnTheAbstractWebPage()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^the word clicked from the word cloud should be highlighted in the abstract$/
+     */
+    public function theWordClickedFromTheWordCloudShouldBeHighlightedInTheAbstract()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^the conference name for a paper should be clickable$/
+     */
+    public function theConferenceNameForAPaperShouldBeClickable()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I click on a conference name for a paper$/
+     */
+    public function iClickOnAConferenceNameForAPaper()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^a new word cloud should be generated based on all papers from the conference clicked$/
+     */
+    public function aNewWordCloudShouldBeGeneratedBasedOnAllPapersFromTheConferenceClicked()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I click on the PDF button$/
+     */
+    public function iClickOnThePdfButton()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^a list of papers should be downloaded as PDF$/
+     */
+    public function aListOfPapersShouldBeDownloadedAsPdf()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I click on the plain text button$/
+     */
+    public function iClickOnThePlainTextButton()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^a list of papers should be downloaded as plain text$/
+     */
+    public function aListOfPapersShouldBeDownloadedAsPlainText()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^I am on the list of papers page$/
+     */
+    public function iAmOnTheListOfPapersPage()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see frequency of the word clicked for each paper$/
+     */
+    public function iShouldSeeFrequencyOfTheWordClickedForEachPaper()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^I am on the word cloud web page and a word cloud has been generated$/
+     */
+    public function iAmOnTheWordCloudWebPageAndAWordCloudHasBeenGenerated()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I click download button$/
+     */
+    public function iClickDownloadButton()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^the image of the word cloud should be downloaded$/
+     */
+    public function theImageOfTheWordCloudShouldBeDownloaded()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^an author in the author list for a paper should be clickable$/
+     */
+    public function anAuthorInTheAuthorListForAPaperShouldBeClickable()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I click on an author in the author list$/
+     */
+    public function iClickOnAnAuthorInTheAuthorList()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^a new word cloud should be generated with that author\'s papers$/
+     */
+    public function aNewWordCloudShouldBeGeneratedWithThatAuthorSPapers()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^I am on the initial search page$/
+     */
+    public function iAmOnTheInitialSearchPage()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I click on the text box$/
+     */
+    public function iClickOnTheTextBox()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should see previously entered searches as a drop down list$/
+     */
+    public function iShouldSeePreviouslyEnteredSearchesAsADropDownList()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^I clicked the search button on the search page$/
+     */
+    public function iClickedTheSearchButtonOnTheSearchPage()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^the status bar should be rectangular$/
+     */
+    public function theStatusBarShouldBeRectangular()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^the status bar should load$/
+     */
+    public function theStatusBarShouldLoad()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^that I am on the list of papers web page$/
+     */
+    public function thatIAmOnTheListOfPapersWebPage()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should be able to click on a subset of papers$/
+     */
+    public function iShouldBeAbleToClickOnASubsetOfPapers()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^that I am on the list of papers web page and a subset of papers are selected$/
+     */
+    public function thatIAmOnTheListOfPapersWebPageAndASubsetOfPapersAreSelected()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I click generate button$/
+     */
+    public function iClickGenerateButton()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^a new word cloud with the papers selected should be generated$/
+     */
+    public function aNewWordCloudWithThePapersSelectedShouldBeGenerated()
+    {
+        throw new PendingException();
+    }
+
