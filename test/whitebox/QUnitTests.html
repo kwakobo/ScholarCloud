@@ -1,22 +1,27 @@
 <!DOCTYPE html>
+<meta charset="utf-8" />
 <html>
-	<head>
-		<title>QUnit Test Suite</title>
-		<script type="text/javascript" src="bower_components/blanket/src/blanket.js"></script>
-		<link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css">
-		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-		<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.1.1.css">
-        <script type="text/javascript" src="./../../src/sortfunctions.js"></script>
-        <script type="text/javascript" src="canvasTests.js"></script>
-        <script type="text/javascript" src="../../src/include/authorList.js"></script>
-        <script type="text/javascript" src="autocomplete.js"></script>
-	</head>
-	<body>
-    	<div id="qunit"></div>
-    	<div id="qunit-fixture"></div>
-    	<script src="https://code.jquery.com/qunit/qunit-2.1.1.js"></script>
+    <head>
+        <title>QUnit Test Suite</title>
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+        <script src="bower_components/qunit/qunit/qunit.js"></script>
+        <link rel="stylesheet" href="bower_components/qunit/qunit/qunit.css">
+        <script src="blanket.min.js"></script>
 
+        <script type="text/javascript" src="./../../src/sortfunctions.js" data-cover></script>
+        <script type="text/javascript" src="canvasTests.js" data-cover></script>
+        <script type="text/javascript" src="../../src/include/authorList.js" data-cover></script>
+        <script type="text/javascript" src="autocomplete.js" data-cover></script>
+
+    </head>
+    <body>
+        <input id="project-search" hidden="hidden" text="Sia">
+        <button id="project-button" hidden="hidden"></button>
+
+
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
     	<script>
     		/* 
     			Quinn & Taylor's Whitebox Tests

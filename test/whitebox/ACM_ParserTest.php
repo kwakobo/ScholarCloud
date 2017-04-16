@@ -14,7 +14,7 @@
 			$output[0]['publication_type'] = "PDF";
 			$output[0]['bibtex'] = "http://dl.acm.org/exportformats.cfm?expformat=bibtex&id=1496657";
 
-			$parse = $parser->get_acm("halfond", 1);
+			$parse = $parser->get_acm("halfond", 1, false);
 
 			$this->assertTrue(trim($parse[0]['authors']) == trim($output[0]['authors']));
 			$this->assertTrue(trim($parse[0]['title']) == trim($output[0]['title']));
@@ -43,7 +43,7 @@
 		 $output[0]['publication_type'] = "PDF";
 		 $output[0]['bibtex'] = "http://dl.acm.org/exportformats.cfm?expformat=bibtex&id=1496657";
 
-		 $parse = $parser->get_acm("halfond", 1);
+		 $parse = $parser->get_acm("halfond", 1, false);
 
 		 $this->assertTrue(trim($parse[0]['authors']) == trim($output[0]['authors']));
 		 $this->assertTrue(trim($parse[0]['title']) == trim($output[0]['title']));
