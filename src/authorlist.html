@@ -43,7 +43,6 @@
 		<script>
 			function add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array)
 			{
-				console.log("adding");
 				document.getElementById("word_clicked").value = word_chosen;
 				document.getElementById("titles").value = titles_array;
 				document.getElementById("authors").value = authors_array;
@@ -134,7 +133,7 @@
 				var article = document.createElement("td");
 				var abstract = articles[i]['abstract']; 
 				console.log(abstract);
-				article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'] + "')"); 
+				article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'].replace(/'/g, "&#39;") + "');"); 
 				var url = document.createElement("td");
 				url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
 				var bibtex = document.createElement("td");
