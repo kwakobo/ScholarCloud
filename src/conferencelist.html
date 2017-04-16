@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/theme.css">
+		<script type="text/javascript" src="sortfunctions.js"></script>
+		<!-- QUINN AND TAYLOR CODE -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<title>Authors</title>
+	</head>
+	<body>	
+		<center>
+			<h1 id="title"></h1>
+			<table id="table">
+				<tr>
+					<th>Paper</th>
+					<th>Download</th>
+					<th>Bibtex</th>
+					<th>Authors</th>
+				</tr>
+			</table>
+		</table>
+		</center>
+		<div class="alert-main-container">
+		  <div id="alert-fixer-container">
+		  		
+		  </div>
+		</div>
+		<script>
+			// INPUT: 'William G. J. Halfond,  Alessandro Orso'
+			// OUTPUT: ['William G. J. Halfond', 'Alessandro Orso']
+			// NOTE: Two spaces between values
+			function parse_authors(authors)
+			{
+				return authors.split(';  ');
+			}
+			function open_url(url) {
+				var win = window.open(url, '_blank');
+				win.focus();
+			}
+			//sets abstract box and highlights word
+			function setAbstract(abstractText) {
+				var chosenWord = localStorage.word_chosen;
+				var abstractArray = abstractText.split(" "); 
+				abstractArray = checkHighlight(abstractArray,chosenWord);
+				var str = abstractArray.toString();
+				document.getElementById('alert-fixer-container').innerHTML = str.replace(/,/g," ");
+			}
+
+			function getParameterByName(name, url) {
+				if (!url) {
+					url = window.location.href;
+				}
+				name = name.replace(/[\[\]]/g, "\\$&");
+				var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+				results = regex.exec(url);
+				if (!results) return null;
+				if (!results[2]) return '';
+				return decodeURIComponent(results[2].replace(/\+/g, " "));
+			}
+
+			function readJSON(file) {
+				var request = new XMLHttpRequest();
+				request.open('GET', file, false);
+				request.send(null);
+				if (request.status == 200)
+					return request.responseText;
+			}
+
+			var conf = getParameterByName("conf");
+			document.getElementById("title").innerHTML = conf;
+
+			var table = document.getElementById("table");
+			var word_chosen = localStorage.word_chosen;
+			var json_resp = readJSON("db/search.php?au=" + conf + "&hc=100&is_conf=1");
+			var articles = JSON.parse(json_resp);
+
+			console.log(articles);
+			
+			var i;
+
+			for(i = 0; i < articles.length; i++)
+			{
+				var row = document.createElement("tr");
+				table.appendChild(row);
+
+				var article = document.createElement("td");
+				var abstract = articles[i]['abstract'];
+				article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'] + "')"); 
+				var url = document.createElement("td");
+				url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
+				var bibtex = document.createElement("td");
+				bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
+				//QUINN AND TAYLOR CODE 
+				var authors = document.createElement("td"); 
+				var conferenceName = document.createElement("td");
+				var checkboxSpot = document.createElement("td");
+				var checkbox = document.createElement('input');
+				checkbox.type = "checkbox";
+				checkbox.name = "shouldInclude";
+				checkbox.value = "value";
+
+				row.appendChild(article);
+				row.appendChild(url);
+				row.appendChild(bibtex);
+				//QUINN AND TAYLOR CODE
+				row.appendChild(authors);
+				row.appendChild(conferenceName);
+				row.appendChild(checkbox);
+
+				article.innerHTML = articles[i]['title'];
+				url.innerHTML = "URL";
+				bibtex.innerHTML = "bibtex";
+				//QUINN AND TAYLOR CODE
+				checkboxSpot.innerHTML = checkbox;
+				authors_list = parse_authors(articles[i]['authors']);
+				for(j = 0; j < authors_list.length; j++)
+				{
+					author_href = document.createElement("a");
+					authors.appendChild(author_href);
+					author_href.setAttribute("href", "index.html?au=" + authors_list[j] + "&hc=5");
+					author_href.innerHTML = authors_list[j];
+					author_break = document.createElement("br");
+					authors.appendChild(author_break);
+				}
+			}
+			//move alert for abstract up!
+			var topLength = articles.length*60*-1 + "px"; 
+			//$('.alert-main-container').css("top",topLength);
+		</script>
+	</body>
+</html>

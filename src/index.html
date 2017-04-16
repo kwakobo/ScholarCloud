@@ -25,6 +25,25 @@
 		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 	</head>
 	<body>
+		<div id="myProgress">
+			<div id="myBar">0%</div>
+		</div>
+		<button type="button" id="canvasDownloadButton"><a id="dl" download = "canvas.png" href = "#"> Download Canvas!</a> </button>
+		<script>
+			function dlCanvas() {
+				var canvas = document.getElementById("my_canvas", 1.0);
+				var ctx = canvas.getContext("2d");
+				var dt = canvas.toDataURL('image/png');
+				/* Change MIME type to trick the browser to downlaod the file instead of displaying it */
+				dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+
+				/* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
+				dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=canvas.png');
+
+				this.href = dt;
+			};
+			document.getElementById("dl").addEventListener('click',dlCanvas, false); 
+		</script>
 		<center>
 			<div id="wordcloud">
 			</div>
@@ -40,78 +59,111 @@
 					-->
 				</form>
 				<script>
-					window.previousSearches = [];
+					var author = getParameterByName("au");
+					var hitcount = getParameterByName("hc");
 
+					if(author != '' && author != null && hitcount != '' && hitcount != null)
+					{
+						var data = readJSON("db/search.php?au=" + author + "&hc=" + hitcount);
+						search(data);
+					}
+
+					function readJSON(file) {
+						var request = new XMLHttpRequest();
+						request.open('GET', file, false);
+						request.send(null);
+						if (request.status == 200)
+							return request.responseText;
+					}
+
+
+					function getParameterByName(name, url) {
+						if (!url) {
+							url = window.location.href;
+						}
+						name = name.replace(/[\[\]]/g, "\\$&");
+						var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+						results = regex.exec(url);
+						if (!results) return null;
+						if (!results[2]) return '';
+						return decodeURIComponent(results[2].replace(/\+/g, " "));
+					}
 					function clicked_word(word)
 					{
 						localStorage.word_chosen = word;
 						window.location = "authorlist.html";
 					}
-					$('#search_form').submit(function(e){
-						addToPreviousSearches(document.getElementById('au').value)
-						e.preventDefault();
+
+					function search(data){
+						//TO DO
+						// data is the returned response from search.php
+						console.log(data);
+						var json_data = JSON.parse(data);
+						localStorage.articles = data;
+						if(json_data.length == 0)
+						{
+							alert("Author not found");
+							return;
+						}
+						var elem = document.getElementById("myBar");
+						var width = 40;
+						elem.style.width = width + '%';
+						elem.innerHTML = width * 1  + '%';
+						//40 = 4 seconds 
+						var id = setInterval(frame, 40);
+						function frame() {
+							if (width >= 100) {
+								clearInterval(id);
+							} else {
+								width++; 
+								elem.style.width = width + '%';
+								elem.innerHTML = width * 1  + '%';
+							}
+						}
+						//console.log(json_data[0]['authors'] + " " + json_data.length)
+						var raw_words_from_doc = "";
+						for(var i = 0; i < json_data.length; i++)
+						{
+							raw_words_from_doc += json_data[i]['text'];
+						}
+						var wordfreq = WordFreq({
+							workerUrl: "include/wordfreq.worker.js",
+							stopWords: true
+						});
+						wordfreq.process(raw_words_from_doc, function(list) {
+							//console.log(list);
+							var cloud = WordCloud(document.getElementById('my_canvas'), {
+								list: list,
+								gridSize: 0,
+								weightFactor: 1/list.length*1000*540/960,
+								backgroundColor: "white",
+								maxRotation: 0,
+								minRotation: 0,
+								drawOutOfBound: false,
+								click: function(item, dimension, event) {
+									clicked_word(item[0]);
+									//console.log(item);
+								}
+							});
+							//console.log(list.length + " " + JSON.stringify(list));
+						});
+
+						document.title = "Scholar Cloud - " + document.getElementById('au').value;
+					}
+
+					function submit (event){
+						addToPreviousSearches(document.getElementById('au').value);
+						event.preventDefault();
 						$.ajax({
 							url:'db/search.php',
 							type: 'get',
 							data: $('#search_form').serialize(),
-							success:function(data){
-								//TO DO
-								// data is the returned response from search.php
-								//console.log(data);
-								var json_data = JSON.parse(data);
-								localStorage.articles = data;
-								if(json_data.length == 0)
-								{
-									alert("Author not found");
-									return;
-								}
-								var elem = document.getElementById("myBar");
-								var width = 40;
-								elem.style.width = width + '%';
-								elem.innerHTML = width * 1  + '%';
-								//40 = 4 seconds 
-								var id = setInterval(frame, 40);
-								function frame() {
-									if (width >= 100) {
-										clearInterval(id);
-									} else {
-										width++; 
-										elem.style.width = width + '%';
-										elem.innerHTML = width * 1  + '%';
-									}
-								}
-								//console.log(json_data[0]['authors'] + " " + json_data.length)
-								var raw_words_from_doc = "";
-								for(var i = 0; i < json_data.length; i++)
-								{
-									raw_words_from_doc += json_data[i]['text'];
-								}
-								var wordfreq = WordFreq({
-									workerUrl: "include/wordfreq.worker.js",
-									stopWords: true
-								});
-								wordfreq.process(raw_words_from_doc, function(list) {
-									//console.log(list);
-									var cloud = WordCloud(document.getElementById('my_canvas'), {
-										list: list,
-										gridSize: 0,
-										weightFactor: 1/list.length*1000*540/960,
-										backgroundColor: "white",
-										maxRotation: 0,
-										minRotation: 0,
-										drawOutOfBound: false,
-										click: function(item, dimension, event) {
-											clicked_word(item[0]);
-											//console.log(item);
-										}
-									});
-									//console.log(list.length + " " + JSON.stringify(list));
-								});
-
-								document.title = "Scholar Cloud - " + document.getElementById('au').value;
+							success: function(data) {
+								// yeah idk
+								search(data);
 							}
 						});
-					});
+					}
 
 					function addToPreviousSearches(query){
 						if(localStorage.getItem('previousSearches') == undefined){
@@ -126,6 +178,11 @@
 						}
 					}
 
+					window.previousSearches = [];
+					$('#search_form').submit(function(e) {
+						submit(e);
+					});
+
 
 					(function($) {
 						$('#au').autocomplete({
@@ -137,24 +194,5 @@
 				</script>
 			</div>
 		</center>
-		<div id="myProgress">
-  			<div id="myBar">0%</div>
-		</div>
-		<button type="button" id="canvasDownloadButton"><a id="dl" download = "canvas.png" href = "#"> Download Canvas!</a> </button>
-		<script>
-			function dlCanvas() {
-				var canvas = document.getElementById("my_canvas", 1.0);
-				var ctx = canvas.getContext("2d");
-  				var dt = canvas.toDataURL('image/png');
-  				/* Change MIME type to trick the browser to downlaod the file instead of displaying it */
-  				dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
-
-  				/* In addition to <a>'s "download" attribute, you can define HTTP-style headers */
-  				dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=canvas.png');
-
-  				this.href = dt;
-			};
-			document.getElementById("dl").addEventListener('click',dlCanvas, false); 
-		</script>
 	</body>
 </html>
