@@ -38,6 +38,10 @@
 	{
 		return $xml->document[$i]->abstract->__toString();
 	}
+	function getDOI($xml, $i)
+	{
+		return $xml->document[$i]->doi->__toString();
+	}
 	function createArticleArray($xml, $top, $url_bibtex)
 	{
 		$articles = array();
@@ -66,6 +70,7 @@
 			$article_elem = array();
 			$article_elem["title"] = getTitle($xml,$i);
 			//$article_elem["arnumber"] = $article_num;
+			$article_elem["doi"] = getDOI($xml, $i);
 			$article_elem["authors"] = getArthors($xml,$i);
 			$article_elem["article"] = getArticle($xml,$i);
 			$article_elem["bibtex"] = getBibtext($url_bibtex,$xml,$i);
@@ -83,6 +88,7 @@
 	{
 		$api_main_url = "http://ieeexplore.ieee.org/gateway/ipsSearch.jsp?&sortfield=au&sortorder=asc";
 		$url_search = $api_main_url."&md=".$author."&hc=".$hc;
+		$url_search = str_replace ( ' ', '%20', $url_search);
 		$url_bibtex = "http://ieeexplore.ieee.org/xpl/downloadCitations?citations-format=citation-only&download-format=download-bibtex&x=0&y=0&recordIds=";
 		$response = getXMLResponse($url_search);
 		$xml = simplexml_load_string($response);

@@ -29,11 +29,11 @@ class DocumentParser
 		$documents = array();
 		foreach($this->data as $elem)
 		{
-			$document = $this->parsers[$elem['publication_type']]->parse($elem['title'], $elem['authors'], $elem['article'], $elem['bibtex'], $elem['abstract'], $elem['conference']);
+			$document = $this->parsers[$elem['publication_type']]->parse($elem['title'], $elem['doi'], $elem['authors'], $elem['article'], $elem['bibtex'], $elem['abstract'], $elem['conference']);
 			array_push($documents, $document);
 		}
 
-		$this->writeToJSON($documents);
+		//$this->writeToJSON($documents);
 		return $documents;
 	}
 

@@ -13,10 +13,12 @@ class XPdfParser implements Parser
 		$this->parser = XPDF\PdfToText::create();
     }
 
-    public function parse($title, $authors, $article, $bibtex, $abstract, $conference)
+    public function parse($title, $doi, $authors, $article, $bibtex, $abstract, $conference)
     {
     	$filename = "tmp.pdf";
-    	file_put_contents($filename, fopen($article, 'r'));
+    	$file = file_put_contents($filename, fopen($article, 'r'));
+        if(!$file)
+            return "";
     	
     	//parse PDF
         $raw_text = $this->parser->getText($filename);
@@ -26,6 +28,6 @@ class XPdfParser implements Parser
  		//unlink pdf file
  		unlink($filename);
 
-		return new Document($title, $authors, $article, $bibtex, $text, $abstract, $conference);
+		return new Document($title, $doi, $authors, $article, $bibtex, $text, $abstract, $conference);
     }
 }

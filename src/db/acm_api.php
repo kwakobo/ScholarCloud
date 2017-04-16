@@ -13,7 +13,7 @@ class ACM_API
 		return $xml_response;
 	}
 
-	private function createArticleArray($json, $top, $url_bibtex)
+	private function createArticleArray($json, $top, $url_bibtex, $is_conference_mode)
 	{
 		$json_articles = $json['message']['items'];
 
@@ -28,17 +28,18 @@ class ACM_API
 			$authors = $this->get_authors($json_articles[$i]['author']);
 			$pdf = "http://dl.acm.org/ft_gateway.cfm?id=".$article_num;
 			$bibtex = $url_bibtex.$article_num;
-			$abstract = $this->get_abstract("http://dl.acm.org/citation.cfm?id=".$article_num);
+			//$abstract = $this->get_abstract("http://dl.acm.org/citation.cfm?id=".$article_num);
 			$conference = $json_articles[$i]['event']['name'];
 
 			$article_elem = array();
 			$article_elem["title"] = $title;
-			//$article_elem["arnumber"] = $article_num;
+			$article_elem["arnumber"] = $article_num;
+			$article_elem["doi"] = $json_articles[$i]['DOI'];
 			$article_elem["authors"] = $authors;
 			$article_elem["article"] = $pdf;
 			$article_elem["bibtex"] = $bibtex;
 			$article_elem["publication_type"] = "PDF";
-			$article_elem["abstract"] = $abstract;
+			//$article_elem["abstract"] = $abstract;
 			$article_elem["conference"] = $conference;
 
 			array_push($articles, $article_elem);
@@ -85,13 +86,16 @@ class ACM_API
 
 	// INPUT: http://dl.acm.org/citation.cfm?id=1496657
 	// OUTPUT: The goal of my work is to improve quality assurance techniques for web applications. I will develop automated techniques for modeling web applications and use these models to improve testing and analysis of web applications.
-	private function get_abstract($url)
+	public function get_abstract($url)
 	{
 		// page must be single page view
 		$url = $url."&preflayout=flat";
 		$abstract_id =  " <div style=\"display:inline\">";
 		$abstract_id_end = "</div>";
 		$html_file = file_get_contents($url);
+		if(!$html_file)
+			return "";
+
 		$html_dom_doc = new DOMDocument();
 		libxml_use_internal_errors(true);
 		$html_dom_doc->loadHTML($html_file);
@@ -107,15 +111,16 @@ class ACM_API
 		return $abstract;
 	}
 
-	function get_acm($author, $hc)
+	function get_acm($author, $hc, $is_conference_mode)
 	{
 		$api_main_url = "http://api.crossref.org/members/320/works?";
 		$url_search = $api_main_url."query=".$author."&rows=".$hc;
+		$url_search = str_replace ( ' ', '%20', $url_search);
 		$url_bibtex = "http://dl.acm.org/exportformats.cfm?expformat=bibtex&id=";
 
 		$response = json_decode($this->get_response($url_search), true);
-		
-		$articles = $this->createArticleArray($response, $hc, $url_bibtex);
+
+		$articles = $this->createArticleArray($response, $hc, $url_bibtex, $is_conference_mode);
 		
 		return $articles;
 	}

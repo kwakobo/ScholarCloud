@@ -1,3 +1,4 @@
 # temp db files
 *.json
 *.pdf
+*.db
