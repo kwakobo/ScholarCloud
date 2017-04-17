@@ -1,0 +1,12 @@
+
+
+Code Coverage Report:    
+  2017-04-17 08:42:51    
+                         
+ Summary:                
+  Classes:  0.00% (0/1)  
+  Methods: 50.00% (3/6)  
+  Lines:   74.58% (44/59)
+
+@ACM::ACM_API
+  Methods:  50.00% ( 3/ 6)   Lines:  74.58% ( 44/ 59)
