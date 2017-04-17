@@ -268,6 +268,261 @@ class FeatureContext extends BehatContext
 		{
 			throw new Exception("Not redirected\n");
 		}
+	}
+	
+	/**
+	 * @Given /^I am on the list of papers web page$/
+	 */
+	public function iAmOnTheListOfPapersWebPage2()
+	{
+		iAmOnTheListOfPapersWebPage();
+	}
 
+	/**
+	 * @Then /^the title of a paper should be clickable$/
+	 */
+	public function theTitleOfAPaperShouldBeClickable()
+	{
+		
+	}
+
+	/**
+	 * @When /^I click on a paper\'s title$/
+	 */
+	public function iClickOnAPaperSTitle()
+	{
+		
+	}
+
+	/**
+	 * @Then /^I should see an abstract for the title clicked$/
+	 */
+	public function iShouldSeeAnAbstractForTheTitleClicked()
+	{
+		
+	}
+
+	/**
+	 * @Given /^I am on the abstract web page$/
+	 */
+	public function iAmOnTheAbstractWebPage()
+	{
+		
+	}
+
+	/**
+	 * @Then /^the word clicked from the word cloud should be highlighted in the abstract$/
+	 */
+	public function theWordClickedFromTheWordCloudShouldBeHighlightedInTheAbstract()
+	{
+		
+	}
+
+	/**
+	 * @Then /^the conference name for a paper should be clickable$/
+	 */
+	public function theConferenceNameForAPaperShouldBeClickable()
+	{
+		
+	}
+
+	/**
+	 * @When /^I click on a conference name for a paper$/
+	 */
+	public function iClickOnAConferenceNameForAPaper()
+	{
+		
+	}
+
+	/**
+	 * @Then /^a new word cloud should be generated based on all papers from the conference clicked$/
+	 */
+	public function aNewWordCloudShouldBeGeneratedBasedOnAllPapersFromTheConferenceClicked()
+	{
+		
+	}
+
+	/**
+	 * @When /^I click on the PDF button$/
+	 */
+	public function iClickOnThePdfButton()
+	{
+		
+	}
+
+	/**
+	 * @Then /^a list of papers should be downloaded as PDF$/
+	 */
+	public function aListOfPapersShouldBeDownloadedAsPdf()
+	{
+		
+	}
+
+	/**
+	 * @When /^I click on the plain text button$/
+	 */
+	public function iClickOnThePlainTextButton()
+	{
+		
+	}
+
+	/**
+	 * @Then /^a list of papers should be downloaded as plain text$/
+	 */
+	public function aListOfPapersShouldBeDownloadedAsPlainText()
+	{
+		
+	}
+
+	/**
+	 * @Given /^I am on the list of papers page$/
+	 */
+	public function iAmOnTheListOfPapersPage()
+	{
+		
+	}
+
+	/**
+	 * @Then /^I should see frequency of the word clicked for each paper$/
+	 */
+	public function iShouldSeeFrequencyOfTheWordClickedForEachPaper()
+	{
+		
+	}
+
+	/**
+	 * @Given /^I am on the word cloud web page and a word cloud has been generated$/
+	 */
+	public function iAmOnTheWordCloudWebPageAndAWordCloudHasBeenGenerated()
+	{
+		
+	}
+
+	/**
+	 * @When /^I click download button$/
+	 */
+	public function iClickDownloadButton()
+	{
+		
+	}
+
+	/**
+	 * @Then /^the image of the word cloud should be downloaded$/
+	 */
+	public function theImageOfTheWordCloudShouldBeDownloaded()
+	{
+		
+	}
+
+	/**
+	 * @Then /^an author in the author list for a paper should be clickable$/
+	 */
+	public function anAuthorInTheAuthorListForAPaperShouldBeClickable()
+	{
+		
+	}
+
+	/**
+	 * @When /^I click on an author in the author list$/
+	 */
+	public function iClickOnAnAuthorInTheAuthorList()
+	{
+		
+	}
+
+	/**
+	 * @Then /^a new word cloud should be generated with that author\'s papers$/
+	 */
+	public function aNewWordCloudShouldBeGeneratedWithThatAuthorSPapers()
+	{
+		
+	}
+
+	/**
+	 * @Given /^I am on the initial search page$/
+	 */
+	public function iAmOnTheInitialSearchPage()
+	{
+		
+	}
+
+	/**
+	 * @When /^I click on the text box$/
+	 */
+	public function iClickOnTheTextBox()
+	{
+		
+	}
+
+	/**
+	 * @Then /^I should see previously entered searches as a drop down list$/
+	 */
+	public function iShouldSeePreviouslyEnteredSearchesAsADropDownList()
+	{
+		
+	}
+
+	/**
+	 * @Given /^I clicked the search button on the search page$/
+	 */
+	public function iClickedTheSearchButtonOnTheSearchPage()
+	{
+		
+	}
+
+	/**
+	 * @Then /^the status bar should be rectangular$/
+	 */
+	public function theStatusBarShouldBeRectangular()
+	{
+		
+	}
+
+	/**
+	 * @Then /^the status bar should load$/
+	 */
+	public function theStatusBarShouldLoad()
+	{
+		
+	}
+
+	/**
+	 * @Given /^that I am on the list of papers web page$/
+	 */
+	public function thatIAmOnTheListOfPapersWebPage()
+	{
+		
+	}
+
+	/**
+	 * @Then /^I should be able to click on a subset of papers$/
+	 */
+	public function iShouldBeAbleToClickOnASubsetOfPapers()
+	{
+		
+	}
+
+	/**
+	 * @Given /^that I am on the list of papers web page and a subset of papers are selected$/
+	 */
+	public function thatIAmOnTheListOfPapersWebPageAndASubsetOfPapersAreSelected()
+	{
+		
+	}
+
+	/**
+	 * @When /^I click generate button$/
+	 */
+	public function iClickGenerateButton()
+	{
+		
+	}
+
+	/**
+	 * @Then /^a new word cloud with the papers selected should be generated$/
+	 */
+	public function aNewWordCloudWithThePapersSelectedShouldBeGenerated()
+	{
+		
 	}
 }
