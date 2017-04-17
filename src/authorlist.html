@@ -120,59 +120,7 @@
 				var pdfs_array = [];
 				var bibtexs_array = [];
 
-			for(i = 0; i < articles.length; i++)
-			{
-				// if word freq in article is 0, break
-				wordfreq = word_freq(articles[i]['text'], word_chosen);
-				if(wordfreq == 0)
-					continue;
-
-				// Adding to forms array
-				titles_array.push(articles[i]['title']);
-				authors_array.push(articles[i]['authors']);
-				conferences_array.push(articles[i]['conference']);
-				frequencies_array.push(wordfreq);
-				pdfs_array.push(articles[i]['article']);
-				bibtexs_array.push(articles[i]['bibtex']);
-
-				var row = document.createElement("tr");
-				table.appendChild(row);
-
-				var article = document.createElement("td");
-				var abstract = articles[i]['abstract']; 
-				console.log(abstract);
-				article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'].replace(/'/g, "&#39;") + "');"); 
-				var url = document.createElement("td");
-				url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
-				var bibtex = document.createElement("td");
-				bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
-				//QUINN AND TAYLOR CODE
-				var frequency = document.createElement("td"); 
-				var authors = document.createElement("td"); 
-				var conferenceName = document.createElement("td");
-				var checkboxSpot = document.createElement("td");
-				var checkbox = document.createElement('input');
-				checkbox.type = "checkbox";
-				checkbox.name = "shouldInclude";
-				checkbox.value = "value";
-
-				row.appendChild(article);
-				row.appendChild(url);
-				row.appendChild(bibtex);
-				//QUINN AND TAYLOR CODE
-				row.appendChild(frequency);
-				row.appendChild(authors);
-				row.appendChild(conferenceName);
-				row.appendChild(checkbox);
-
-				article.innerHTML = articles[i]['title'];
-				url.innerHTML = "URL";
-				bibtex.innerHTML = "bibtex";
-				//QUINN AND TAYLOR CODE
-				frequency.innerHTML = wordfreq;
-				checkboxSpot.innerHTML = checkbox;
-				authors_list = parse_authors(articles[i]['authors']);
-				for(j = 0; j < authors_list.length; j++)
+				for(i = 0; i < articles.length; i++)
 				{
 					// if word freq in article is 0, break
 					wordfreq = word_freq(articles[i]['text'], word_chosen);
@@ -229,14 +177,14 @@
 					{
 						author_href = document.createElement("a");
 						authors.appendChild(author_href);
-						author_href.setAttribute("href", "index.html?au=" + authors_list[j] + "&hc=5");
+						author_href.setAttribute("href", "Need to make word cloud href");
 						author_href.innerHTML = authors_list[j];
 						author_break = document.createElement("br");
 						authors.appendChild(author_break);
 					}
 					conference_href = document.createElement("a");
 					conference_href.innerHTML = articles[i]['conference'];
-					conference_href.setAttribute("href", "conferencelist.html?conf=" + articles[i]['conference']);
+					conference_href.setAttribute("href", "Need to make word cloud href")
 					conferenceName.appendChild(conference_href);
 				}
 				//move alert for abstract up!
