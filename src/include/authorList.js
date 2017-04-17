@@ -235,3 +235,8 @@ function sortRows(key){
 	createTable();
 	console.log(JSON.parse(localStorage.articles))
 }
+
+function getProgressWidth(width) {
+	if (width == 100) return 0; 
+	else return width+1; 
+}

@@ -46,18 +46,26 @@
             //Check if canvas download link is correct
             QUnit.test("isCanvasLinkRight", function( assert ) {
                 function canvasTest(expectedResult) {
-                    assert.equal(dlCanvasTest(), expectedResult); 
+                    var answer = dlCanvasTest().split(',');
+                    assert.equal(answer[0], expectedResult); 
                 }
-                canvasTest("data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=canvas.png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAAxUlEQVR4nO3BMQEAAADCoPVPbQhfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOA1v9QAATX68/0AAAAASUVORK5CYII=");
+                canvasTest("data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=canvas.png;base64");
             });
             //Check if returns correct string corresponding to highlights 
             QUnit.test("checkHighlightTest", function( assert ) {
                 function highlightTest(abstractArray, chosenWord, expectedResult) {
-                    console.log(chosenWord);
                     assert.deepEqual(checkHighlight(abstractArray, chosenWord), expectedResult);
                 }
                 highlightTest(["Shakes","Yo"], "Shakes", ["<span style=color:#FFFF00>Shakes</span> ","Yo"]);
                 highlightTest(["Shakes","Yo"], "Me", ["Shakes","Yo"]); 
+            });
+            //check if progress bar is implemented correctly 
+            QUnit.test("checkProgressBar", function( assert ) {
+                function progressTest(width, expectedResult) {
+                    assert.equal(getProgressWidth(width),expectedResult);
+                } 
+                progressTest(0,1);
+                progressTest(99,100);
             });
 
             /*
