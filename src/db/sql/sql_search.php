@@ -7,7 +7,7 @@
 								WHERE database = '$type'
 								AND doi = '$doi';");
 
-		if($row = $results->fetchArray(SQLITE3_ASSOC))
+		if($results != false && $row = $results->fetchArray(SQLITE3_ASSOC))
 		{
 			$article_data = array();
 			$article_data['text'] = $row['text'];

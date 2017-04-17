@@ -21,7 +21,7 @@
 		// check sql
 		foreach($acm_articles as $article)
 		{
-			$sql_result = sql_get('acm', $article['doi']);
+			$sql_result = @sql_get('acm', $article['doi']);
 			if($sql_result != false)
 			{
 				$article['text'] = $sql_result['text'];
@@ -41,7 +41,7 @@
 
 		// add newly parsed to sql and grab abstract
 		foreach ($acm_newly_parsed as $parsed_article) {
-			sql_add('acm', $parsed_article['doi'], $parsed_article['text'], $parsed_article['abstract']);
+			@sql_add('acm', $parsed_article['doi'], $parsed_article['text'], $parsed_article['abstract']);
 		}
 		$acm_parsed = array_merge_recursive($acm_newly_parsed, $acm_articles_parsed);
 
