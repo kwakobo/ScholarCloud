@@ -22,6 +22,6 @@
 	{
 		$db = new SQLite3('articles.db');
 		$db->query("INSERT INTO article (database, doi, text, abstract)
-					VALUES ('{$type}', '{$doi}', '{$text}', '{$abstract}');");
+					VALUES ('$type', '$doi', '$text', '$abstract');");
 	}
 ?>
