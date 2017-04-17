@@ -18,14 +18,28 @@ var sortEnum = {
 *USAGE | sort(array of objects to sort -- at least one attribute, name of attribute to sort by, sortEnum enumerator)
 */
 function sort(articles, key, order){
-	articles.sort(function(a,b){
-		if(a[key] > b[key]){
-			return 1*order
-		}else if (a[key] < b[key]){
-			return -1*order;
-		}else{
-			return 0;
-		}
-	});
+	var query = key.split("_");
+	if(query[0] == 'frequency'){
+		articles.sort(function(a,b){
+			console.log(a.frequencies[query[1]]);
+			if(a.frequencies[query[1]] > b.frequencies[query[1]]){
+				return 1*order
+			}else if (a.frequencies[query[1]] < b.frequencies[query[1]]){
+				return -1*order;
+			}else{
+				return 0;
+			}
+		});
+	} else {
+		articles.sort(function(a,b){
+			if(a[key] > b[key]){
+				return 1*order
+			}else if (a[key] < b[key]){
+				return -1*order;
+			}else{
+				return 0;
+			}
+		});
+	}
 	return articles;
 }

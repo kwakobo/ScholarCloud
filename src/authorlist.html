@@ -28,7 +28,7 @@
 					<th onclick="sortRows('title')">Paper</th>
 					<th>Download</th>
 					<th onclick="sortRows('bibtex')">Bibtex</th>
-					<th onclick="sortRows('frequency')">Frequency</th>
+					<th onclick="sortRows('frequency'+'_'+localStorage.word_chosen)">Frequency</th>
 					<th onclick="sortRows('authors')">Authors</th>
 					<th onclick="sortRows('conference')">Conference</th>
 				</tr>
@@ -44,9 +44,9 @@
 			window.sortOrders = {
 				'title' : null,
 				'bibtex' : null,
-				'frequency' : null,
 				'authors' : null
 			}
+			window.sortOrders['frequency_'+localStorage.word_chosen] = null;
 
 			function add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array)
 			{
@@ -122,10 +122,22 @@
 
 				for(i = 0; i < articles.length; i++)
 				{
-					// if word freq in article is 0, break
-					wordfreq = word_freq(articles[i]['text'], word_chosen);
-					if(wordfreq == 0)
+					if(JSON.parse(localStorage.articles)[i].frequencies == undefined){
+						articles[i].frequencies = {};
+					}
+
+					var wordfreq;
+					if(articles[i].frequencies[word_chosen] == undefined){
+						// if word freq in article is 0, break
+						wordfreq = word_freq(articles[i]['text'], word_chosen);
+						articles[i].frequencies[word_chosen] = wordfreq;
+						if(wordfreq == 0)
+							continue;
+					} else if (articles[i].frequencies[word_chosen] == 0){
 						continue;
+					} else {
+						wordfreq = articles[i].frequencies[word_chosen];
+					}
 
 					// Adding to forms array
 					titles_array.push(articles[i]['title']);
@@ -192,6 +204,9 @@
 				//$('.alert-main-container').css("top",topLength);
 
 				add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array);
+
+				//update localStorage articles
+				localStorage.articles = JSON.stringify(articles);
 			}
 
 			createTable(); //create table for initial page load
@@ -210,14 +225,15 @@
 			}
 
 			function toggle(key){
-				if(window.sortOrders.key === null){
-					window.sortOrders.key = sortEnum.ASCENDING; //default to ascending
-				} else if(window.sortOrders.key === sortEnum.ASCENDING){
-					window.sortOrders.key = sortEnum.DESCENDING; //toggle
+				//alert(key);
+				if(window.sortOrders[key] === null){
+					window.sortOrders[key] = sortEnum.ASCENDING; //default to ascending
+				} else if(window.sortOrders[key] === sortEnum.ASCENDING){
+					window.sortOrders[key] = sortEnum.DESCENDING; //toggle
 				} else {
-					window.sortOrders.key = sortEnum.ASCENDING; //toggle
+					window.sortOrders[key] = sortEnum.ASCENDING; //toggle
 				}
-				return window.sortOrders.key;
+				return window.sortOrders[key];
 			}
 
 			function sortRows(key){
