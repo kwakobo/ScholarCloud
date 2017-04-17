@@ -19,7 +19,13 @@ var sortEnum = {
 */
 function sort(articles, key, order){
 	articles.sort(function(a,b){
-		return (a[key] > b[key]) ? 1*order : -1*order;
+		if(a[key] > b[key]){
+			return 1*order
+		}else if (a[key] < b[key]){
+			return -1*order;
+		}else{
+			return 0;
+		}
 	});
 	return articles;
 }

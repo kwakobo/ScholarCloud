@@ -25,12 +25,12 @@
 			<h1 id="title"></h1>
 			<table id="table">
 				<tr>
-					<th>Paper</th>
+					<th onclick="sortRows('title')">Paper</th>
 					<th>Download</th>
-					<th>Bibtex</th>
-					<th>Frequency</th>
-					<th>Authors</th>
-					<th>Conference</th>
+					<th onclick="sortRows('bibtex')">Bibtex</th>
+					<th onclick="sortRows('frequency')">Frequency</th>
+					<th onclick="sortRows('authors')">Authors</th>
+					<th onclick="sortRows('conference')">Conference</th>
 				</tr>
 			</table>
 		</table>
@@ -41,6 +41,13 @@
 		  </div>
 		</div>
 		<script>
+			window.sortOrders = {
+				'title' : null,
+				'bibtex' : null,
+				'frequency' : null,
+				'authors' : null
+			}
+
 			function add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array)
 			{
 				console.log("adding");
@@ -100,90 +107,129 @@
 
 			document.getElementById("title").innerHTML = localStorage.word_chosen;
 
-			var table = document.getElementById("table");
-			var word_chosen = localStorage.word_chosen;
-			var articles = JSON.parse(localStorage.articles);
-			
-			var i;
+			function createTable(){
+				var table = document.getElementById("table");
+				var word_chosen = localStorage.word_chosen;
+				var articles = JSON.parse(localStorage.articles);
+				
+				var i;
 
-			var titles_array = [];
-			var authors_array = [];
-			var conferences_array = [];
-			var frequencies_array = [];
-			var pdfs_array = [];
-			var bibtexs_array = [];
+				var titles_array = [];
+				var authors_array = [];
+				var conferences_array = [];
+				var frequencies_array = [];
+				var pdfs_array = [];
+				var bibtexs_array = [];
 
-			for(i = 0; i < articles.length; i++)
-			{
-				// if word freq in article is 0, break
-				wordfreq = word_freq(articles[i]['text'], word_chosen);
-				if(wordfreq == 0)
-					continue;
-
-				// Adding to forms array
-				titles_array.push(articles[i]['title']);
-				authors_array.push(articles[i]['authors']);
-				conferences_array.push(articles[i]['conference']);
-				frequencies_array.push(wordfreq);
-				pdfs_array.push(articles[i]['article']);
-				bibtexs_array.push(articles[i]['bibtex']);
-
-				var row = document.createElement("tr");
-				table.appendChild(row);
-
-				var article = document.createElement("td");
-				var abstract = articles[i]['abstract']; 
-				console.log(abstract);
-				article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'] + "')"); 
-				var url = document.createElement("td");
-				url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
-				var bibtex = document.createElement("td");
-				bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
-				//QUINN AND TAYLOR CODE
-				var frequency = document.createElement("td"); 
-				var authors = document.createElement("td"); 
-				var conferenceName = document.createElement("td");
-				var checkboxSpot = document.createElement("td");
-				var checkbox = document.createElement('input');
-				checkbox.type = "checkbox";
-				checkbox.name = "shouldInclude";
-				checkbox.value = "value";
-
-				row.appendChild(article);
-				row.appendChild(url);
-				row.appendChild(bibtex);
-				//QUINN AND TAYLOR CODE
-				row.appendChild(frequency);
-				row.appendChild(authors);
-				row.appendChild(conferenceName);
-				row.appendChild(checkbox);
-
-				article.innerHTML = articles[i]['title'];
-				url.innerHTML = "URL";
-				bibtex.innerHTML = "bibtex";
-				//QUINN AND TAYLOR CODE
-				frequency.innerHTML = wordfreq;
-				checkboxSpot.innerHTML = checkbox;
-				authors_list = parse_authors(articles[i]['authors']);
-				for(j = 0; j < authors_list.length; j++)
+				for(i = 0; i < articles.length; i++)
 				{
-					author_href = document.createElement("a");
-					authors.appendChild(author_href);
-					author_href.setAttribute("href", "index.html?au=" + authors_list[j] + "&hc=5");
-					author_href.innerHTML = authors_list[j];
-					author_break = document.createElement("br");
-					authors.appendChild(author_break);
-				}
-				conference_href = document.createElement("a");
-				conference_href.innerHTML = articles[i]['conference'];
-				conference_href.setAttribute("href", "conferencelist.html?conf=" + articles[i]['conference']);
-				conferenceName.appendChild(conference_href);
-			}
-			//move alert for abstract up!
-			var topLength = articles.length*60*-1 + "px"; 
-			//$('.alert-main-container').css("top",topLength);
+					// if word freq in article is 0, break
+					wordfreq = word_freq(articles[i]['text'], word_chosen);
+					if(wordfreq == 0)
+						continue;
 
-			add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array);
+					// Adding to forms array
+					titles_array.push(articles[i]['title']);
+					authors_array.push(articles[i]['authors']);
+					conferences_array.push(articles[i]['conference']);
+					frequencies_array.push(wordfreq);
+					pdfs_array.push(articles[i]['article']);
+					bibtexs_array.push(articles[i]['bibtex']);
+
+					var row = document.createElement("tr");
+					row.id = "articles-row";
+					table.appendChild(row);
+
+					var article = document.createElement("td");
+					var abstract = articles[i]['abstract']; 
+					console.log(abstract);
+					article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'] + "')"); 
+					var url = document.createElement("td");
+					url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
+					var bibtex = document.createElement("td");
+					bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
+					//QUINN AND TAYLOR CODE
+					var frequency = document.createElement("td"); 
+					var authors = document.createElement("td"); 
+					var conferenceName = document.createElement("td");
+					var checkboxSpot = document.createElement("td");
+					var checkbox = document.createElement('input');
+					checkbox.type = "checkbox";
+					checkbox.name = "shouldInclude";
+					checkbox.value = "value";
+
+					row.appendChild(article);
+					row.appendChild(url);
+					row.appendChild(bibtex);
+					//QUINN AND TAYLOR CODE
+					row.appendChild(frequency);
+					row.appendChild(authors);
+					row.appendChild(conferenceName);
+					row.appendChild(checkbox);
+
+					article.innerHTML = articles[i]['title'];
+					url.innerHTML = "URL";
+					bibtex.innerHTML = "bibtex";
+					//QUINN AND TAYLOR CODE
+					frequency.innerHTML = wordfreq;
+					checkboxSpot.innerHTML = checkbox;
+					authors_list = parse_authors(articles[i]['authors']);
+					for(j = 0; j < authors_list.length; j++)
+					{
+						author_href = document.createElement("a");
+						authors.appendChild(author_href);
+						author_href.setAttribute("href", "index.html?au=" + authors_list[j] + "&hc=5");
+						author_href.innerHTML = authors_list[j];
+						author_break = document.createElement("br");
+						authors.appendChild(author_break);
+					}
+					conference_href = document.createElement("a");
+					conference_href.innerHTML = articles[i]['conference'];
+					conference_href.setAttribute("href", "conferencelist.html?conf=" + articles[i]['conference']);
+					conferenceName.appendChild(conference_href);
+				}
+				//move alert for abstract up!
+				var topLength = articles.length*60*-1 + "px"; 
+				//$('.alert-main-container').css("top",topLength);
+
+				add_forms(word_chosen, titles_array, authors_array, conferences_array, frequencies_array, pdfs_array, bibtexs_array);
+			}
+
+			createTable(); //create table for initial page load
+
+			function clearTable(){
+				//remove all "td" elements
+				var element = document.getElementsByTagName("td"), index;
+				for (index = element.length - 1; index >= 0; index--) {
+    				element[index].parentNode.removeChild(element[index]);
+				}element = document.getElementsByName("shouldInclude")
+				for (index = element.length - 1; index >= 0; index--) {
+    				element[index].parentNode.removeChild(element[index]);
+				}
+				var articlesRow = document.getElementById("articles-row");
+				articlesRow.parentNode.removeChild(articlesRow);
+			}
+
+			function toggle(key){
+				if(window.sortOrders.key === null){
+					window.sortOrders.key = sortEnum.ASCENDING; //default to ascending
+				} else if(window.sortOrders.key === sortEnum.ASCENDING){
+					window.sortOrders.key = sortEnum.DESCENDING; //toggle
+				} else {
+					window.sortOrders.key = sortEnum.ASCENDING; //toggle
+				}
+				return window.sortOrders.key;
+			}
+
+			function sortRows(key){
+				clearTable(); //clear old table
+				//console.log(JSON.parse(localStorage.articles))
+				var order = toggle(key); //toggle to ascending or descending
+				var articles = sort(JSON.parse(localStorage.articles), key, order);
+				localStorage.articles = JSON.stringify(articles);
+				createTable();
+				console.log(JSON.parse(localStorage.articles))
+			}
 		</script>
 	</body>
 </html>
