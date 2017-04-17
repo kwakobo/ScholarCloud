@@ -61,8 +61,15 @@
 				<script>
 					var author = getParameterByName("au");
 					var hitcount = getParameterByName("hc");
+					var subset = getParameterByName("subset");
 
-					if(author != '' && author != null && hitcount != '' && hitcount != null)
+					if(subset != '' && subset != null && subset == "1")
+					{
+						var data = localStorage.subset_articles;
+						console.log(data);
+						search(data);
+					}
+					else if(author != '' && author != null && hitcount != '' && hitcount != null)
 					{
 						var data = readJSON("db/search.php?au=" + author + "&hc=" + hitcount);
 						search(data);
