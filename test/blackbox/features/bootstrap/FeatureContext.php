@@ -275,7 +275,23 @@ class FeatureContext extends BehatContext
 	 */
 	public function iAmOnTheListOfPapersWebPage2()
 	{
-		iAmOnTheListOfPapersWebPage();
+		$this->driver->get("http://localhost:8000/index.html");
+
+		$search_input = $this->driver->findElement(WebDriverBy::id("au"));
+		$search_input->sendKeys("halfond");
+
+		$hc_input = $this->driver->findElement(WebDriverBy::id("hc"));
+		$hc_input->sendKeys("1");
+
+		$submit = $this->driver->findElement(WebDriverBy::id("submit"));
+
+		$submit->click();
+
+		$this->driver->wait(60, 500)->until( WebDriverExpectedCondition::titleIs('Scholar Cloud - halfond') );
+
+		$this->driver->executeScript("clicked_word('web');");
+
+		$this->driver->wait(60, 500)->until( WebDriverExpectedCondition::titleIs('Authors') );
 	}
 
 	/**

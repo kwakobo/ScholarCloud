@@ -47,6 +47,20 @@ function open_url(url) {
 	var win = window.open(url, '_blank');
 	win.focus();
 }
+
+function open_urlTest(url) {
+	return "www."+url+".com";
+}
+
+function checkHighlight(abstractArray, chosenWord) {
+	for (var i=0; i<abstractArray.length; i++) {
+		if (abstractArray[i].toUpperCase() == chosenWord.toUpperCase()) {
+			abstractArray[i] = "<span style=color:#FFFF00>" + chosenWord + "</span> "; 
+		}
+	}
+	return abstractArray;
+}
+
 //sets abstract box and highlights word
 function setAbstract(abstractText, fullText) {
 	var chosenWord = localStorage.word_chosen;
