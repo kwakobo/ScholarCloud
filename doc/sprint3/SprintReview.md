@@ -12,3 +12,7 @@
 #### Blackbox
 - Blackbox and Whitebox tests for keyword searches (should test for multiple word searches)
 - Blackbox and Whitebox tests for highlighted words in the abstract and highlighted PDF
+
+#### Process Feedback
+- There should be proofs to show the code is indeed improved after refactoring (some comparisons)
+- Missing details of when the bug occurred and when the test cases were created
