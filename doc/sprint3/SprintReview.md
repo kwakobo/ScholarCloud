@@ -8,10 +8,12 @@
 #### Whitebox
 - Whitebox test for getting PDF document and Bibtex
 - Whitebox test for exporting list of papers as PDF and plain text
+- Whitebox test for keyword searches (should test for multiple word searches)
+- Whitebox test for highlighted words in the abstract and highlighted PDF
 
 #### Blackbox
-- Blackbox and Whitebox tests for keyword searches (should test for multiple word searches)
-- Blackbox and Whitebox tests for highlighted words in the abstract and highlighted PDF
+- Blackbox test for keyword searches (should test for multiple word searches)
+- Blackbox test for highlighted words in the abstract and highlighted PDF
 
 #### Process Feedback
 - There should be proofs to show the code is indeed improved after refactoring (some comparisons)
