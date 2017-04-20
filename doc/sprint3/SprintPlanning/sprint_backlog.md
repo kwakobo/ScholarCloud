@@ -1,0 +1,2 @@
+1) Adding frequency column to the new list of papers when clicking on conference name
+2) For each paper, clicking on a paper’s title will allow the user to access for download a PDF version of the paper with the word highlighted in the PDF
