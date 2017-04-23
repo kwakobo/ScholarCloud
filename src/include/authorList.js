@@ -240,3 +240,17 @@ function getProgressWidth(width) {
 	if (width == 100) return 0; 
 	else return width+1; 
 }
+
+function checkHighlightPDF(text, chosenWord) {
+	if (text.length == 0) return [];
+	var testArray = text.split(" ");
+	for (var i=0; i<testArray.length; i++) {
+		if (testArray[i].toUpperCase() == chosenWord.toUpperCase()) {
+			testArray[i] = "yellow"+testArray[i];
+		}
+		else {
+			testArray[i] = "white"+testArray[i];
+		}
+	}
+	return testArray; 
+}
