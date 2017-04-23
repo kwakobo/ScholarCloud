@@ -67,7 +67,24 @@
                 progressTest(0,1);
                 progressTest(99,100);
             });
-
+            //Checks if abstract highlights words
+            QUnit.test("checkAbstractHighlighted", function( assert ) {
+                function abstractHighlightTest(abstractArray, chosenWord, expectedResult) {
+                    assert.deepEqual(checkHighlight(abstractArray, chosenWord), expectedResult);
+                }
+                abstractHighlightTest(["Pass","Test"], "Pass", ["<span style=color:#FFFF00>Pass</span> ","Test"]);
+                abstractHighlightTest(["NoColor","Test"], "Pass", ["NoColor","Test"]);
+                abstractHighlightTest([], "", []);
+            });
+            //Checks if pdf has highlighted words
+            QUnit.test("checkPDFHighlighted", function( assert ) {
+                function PDFHighlightTest(testArray, chosenWord, expectedResult) {
+                    assert.deepEqual(checkHighlightPDF(testArray, chosenWord), expectedResult); 
+                }
+                PDFHighlightTest("Hello This is a Pass Test", "Pass", ["whiteHello","whiteThis","whiteis","whitea","yellowPass","whiteTest"]);
+                PDFHighlightTest("Hello This is a No Test", "Pass", ["whiteHello","whiteThis","whiteis","whitea","whiteNo","whiteTest"]);
+                PDFHighlightTest([], "", []);
+            });
             /*
             *Begin sorting function tests by Jeffrey/Bryce
             */

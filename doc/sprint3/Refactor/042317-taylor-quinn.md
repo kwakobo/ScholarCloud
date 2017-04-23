@@ -1,0 +1,2 @@
+- Refactoring `src/include/authorlist.js'
+- Authorlist.js had a function that wasn't broken up well for testing, refactored the function into spilt parts to have more specific test functionality
