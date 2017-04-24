@@ -13,39 +13,50 @@
 	$acm_articles = $acm->get_acm($_GET["au"], $_GET["hc"], $is_conference_mode);
 	$ieee = get($_GET["au"], $_GET["hc"]);
 
+	$articles = array_merge_recursive($ieee, $acm_articles);
+
 	if($is_conference_mode == false)
 	{
-		$acm_articles_parsed = array();
-		$acm_articles_to_parse = array();
+		$articles_parsed = array();
+		$articles_to_parse = array();
 
 		// check sql
-		foreach($acm_articles as $article)
+		foreach($articles as $article)
 		{
-			$sql_result = @sql_get('acm', $article['doi']);
+			$sql_result = @sql_get($article['db'], $article['doi']);
 			if($sql_result != false)
 			{
 				$article['text'] = $sql_result['text'];
-				$article['abstract'] = $sql_result['abstract'];
-				array_push($acm_articles_parsed, $article);
+
+				if($article['db'] == "acm")
+					$article['abstract'] = $sql_result['abstract'];
+				array_push($articles_parsed, $article);
 			}
 			else
 			{
-				$article['abstract'] = $acm->get_abstract("http://dl.acm.org/citation.cfm?id=".$article['arnumber']);
-				array_push($acm_articles_to_parse, $article);
+				if($article['db'] == "acm")
+					$article['abstract'] = $acm->get_abstract("http://dl.acm.org/citation.cfm?id=".$article['arnumber']);
+				array_push($articles_to_parse, $article);
 			}
 		}
 
 		// parse
-		$docparser = new DocumentParser($acm_articles_to_parse);
-		$acm_newly_parsed = json_decode(json_encode($docparser->parseDocuments()), true);
+		$docparser = new DocumentParser($articles_to_parse);
+		$newly_parsed = json_decode(json_encode($docparser->parseDocuments()), true);
+		//var_dump($newly_parsed);
 
 		// add newly parsed to sql and grab abstract
-		foreach ($acm_newly_parsed as $parsed_article) {
-			@sql_add('acm', $parsed_article['doi'], $parsed_article['text'], $parsed_article['abstract']);
+		foreach ($newly_parsed as $parsed_article) {
+			@sql_add($parsed_article['db'], $parsed_article['doi'], $parsed_article['text'], $parsed_article['abstract']);
 		}
-		$acm_parsed = array_merge_recursive($acm_newly_parsed, $acm_articles_parsed);
+		if(empty($newly_parsed))
+			$output = $articles_parsed;
+		else if(empty($articles_parsed))
+			$output = $newly_parsed;
+		else
+			$output = array_merge_recursive($newly_parsed, $articles_parsed);
 
-		$output = array_merge_recursive($acm_parsed, $ieee);
+		//$output = array_merge_recursive($acm_parsed, $ieee);
 	}
 	else
 	{

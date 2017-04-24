@@ -13,6 +13,15 @@ class ACM_API
 		return $xml_response;
 	}
 
+	private function check_extension($article)
+	{
+		if(array_key_exists('issn-type', $article) &&
+			array_key_exists('print', $article['issn-type']))
+			return true;
+		else
+			return false;
+	}
+
 	private function createArticleArray($json, $top, $url_bibtex, $is_conference_mode)
 	{
 		$json_articles = $json['message']['items'];
@@ -23,15 +32,20 @@ class ACM_API
 		}
 
 		for ($i=0; $i<$top; $i++) {
+
 			$title = $json_articles[$i]['title'][0];
 			$article_num = $this->get_article_num($json_articles[$i]['DOI']);
 			$authors = $this->get_authors($json_articles[$i]['author']);
 			$pdf = "http://dl.acm.org/ft_gateway.cfm?id=".$article_num;
 			$bibtex = $url_bibtex.$article_num;
 			//$abstract = $this->get_abstract("http://dl.acm.org/citation.cfm?id=".$article_num);
-			$conference = $json_articles[$i]['event']['name'];
+			if(array_key_exists('event', $json_articles[$i]))
+				$conference = $json_articles[$i]['event']['name'];
+			else
+				$conference = "Conference not found";
 
 			$article_elem = array();
+			$article_elem["db"] = "acm";
 			$article_elem["title"] = $title;
 			$article_elem["arnumber"] = $article_num;
 			$article_elem["doi"] = $json_articles[$i]['DOI'];

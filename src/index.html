@@ -138,7 +138,6 @@
 							stopWords: true
 						});
 						wordfreq.process(raw_words_from_doc, function(list) {
-							//console.log(list);
 							var cloud = WordCloud(document.getElementById('my_canvas'), {
 								list: list,
 								gridSize: 0,

@@ -13,7 +13,7 @@ class PdfParser implements Parser
 		$this->parser = new PDF2Text();
     }
 
-    public function parse($title, $authors, $article, $bibtex)
+    public function parse($title, $db, $authors, $article, $bibtex)
     {	
     	$filename = "tmp.pdf";
     	file_put_contents($filename, fopen($article, 'r'));
@@ -28,7 +28,7 @@ class PdfParser implements Parser
 
  		echo $text;
 
-		return new Document($title, $authors, $article, $bibtex, $text);
+		return new Document($title, $db, $authors, $article, $bibtex, $text);
     }
 }
 

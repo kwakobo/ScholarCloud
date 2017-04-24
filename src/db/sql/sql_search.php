@@ -21,7 +21,12 @@
 	function sql_add($type, $doi, $text, $abstract)
 	{
 		$db = new SQLite3('articles.db');
-		$db->query("INSERT INTO article (database, doi, text, abstract)
-					VALUES ('$type', '$doi', '$text', '$abstract');");
+		$stmt = $db->prepare("INSERT INTO article (database, doi, text, abstract)
+					VALUES (?, ?, ?, ?)");
+		$stmt->bindValue(1, $type);
+		$stmt->bindValue(2, $doi);
+		$stmt->bindValue(3, $text);
+		$stmt->bindValue(4, $abstract);
+		$stmt->execute();
 	}
 ?>
