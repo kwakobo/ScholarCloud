@@ -19,6 +19,14 @@ function download_plain_text($word_clicked, $titles, $authors, $conferences, $fr
 	echo $content;
 }
 
+function set_font()
+{
+	$pdf = new FPDF();
+	$pdf->AddPage();
+	$pdf->SetFont('Arial','',11);
+
+	return $pdf;
+}
 
 function yellow($pdf, $word)
 {
@@ -33,9 +41,7 @@ function white($pdf, $word)
 }
 
 function createPDFWithHighlights($text, $highlight_word) {
-	$pdf = new FPDF();
-	$pdf->AddPage();
-	$pdf->SetFont('Arial','',11);
+	$pdf = set_font();
 	$words = explode(" ", $text);
 	$pdfString = '';
 	$pageWidth = $pdf->GetPageWidth();
@@ -58,11 +64,8 @@ function createPDFWithHighlights($text, $highlight_word) {
 
 function createPDFListOfPapers($word_clicked, $titles, $authors, $conferences, $frequencies, $pdfs, $bibtexs)
 {
-	$pdf = new FPDF();
-	$pdf->AddPage();
-	$pdf->SetFont('Arial','',10);
-	
-	$pdf->SetFont('Arial','',10);
+	$pdf = set_font();
+
 	for($i=0;$i<count($titles);$i++) {
 		$pdf->SetTextColor(0,0,0);
 		$pdf->Cell(100,7,"Title: ".$titles[$i],0);
