@@ -15,3 +15,8 @@ Scenario: Click on title should show abstract
 Scenario: Abstract is highlighted
 	Given I am on the abstract web page
 	Then the word clicked from the word cloud should be highlighted in the abstract
+
+Scenario: Abstract PDF is highlighted
+	Given I on the abstract webpage
+	When I click download abstract PDF
+	Then I should get a download back with words highlighted
