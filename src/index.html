@@ -138,7 +138,6 @@
 							stopWords: true
 						});
 						wordfreq.process(raw_words_from_doc, function(list) {
-							//console.log(list);
 							var cloud = WordCloud(document.getElementById('my_canvas'), {
 								list: list,
 								gridSize: 0,
@@ -160,6 +159,7 @@
 
 					function submit (event){
 						addToPreviousSearches(document.getElementById('au').value);
+						console.log( $('#search_form').serialize());
 						event.preventDefault();
 						$.ajax({
 							url:'db/search.php',

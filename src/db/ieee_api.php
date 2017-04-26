@@ -12,6 +12,41 @@
 		return $xml_response;
 	}
 
+	function getPDFURL($url){
+		//var_dump($url);
+		$cookiejar = "cookie.txt";
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+		//curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0');
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+		curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiejar);
+		curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiejar);
+
+		$response = curl_exec($ch);
+		//$redirectURL = curl_getinfo($ch,CURLINFO_EFFECTIVE_URL);
+		//curl_setopt($ch, CURLOPT_URL, $redirectURL);
+		//curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+		//$output = curl_exec($ch);
+		file_put_contents("test.html", $output);
+		curl_close($ch);
+		//echo($response);
+
+		//unlink($cookiejar);
+
+		//exec("curl ".$url." -b ".$cookiejar, $output);
+
+		//$str =implode(" ",$output);
+		preg_match('/src="(http:\/\/ieeexplore.ieee.org[^"]*)"/', $response, $matches);
+
+		$pdfurl = $matches[1];
+
+		return $pdfurl;
+	}
+
 	function getTitle($xml,$i)
 	{
 		return $xml->document[$i]->title->__toString();
@@ -22,7 +57,8 @@
 	}
 	function getArticle($xml,$i)
 	{
-		return $xml->document[$i]->pdf->__toString();
+		//return getPDFURL($xml->document[$i]->pdf->__toString());
+		return "http://ieeexplore.ieee.org/stampPDF/getPDF.jsp?arnumber=".$xml->document[$i]->arnumber;
 	}
 	function getBibtext($url_bibtex,$xml,$i)
 	{
@@ -68,6 +104,7 @@
 			$article_elem["abstract"] = $abstract;*/
 
 			$article_elem = array();
+			$article_elem["db"] = "ieee";
 			$article_elem["title"] = getTitle($xml,$i);
 			//$article_elem["arnumber"] = $article_num;
 			$article_elem["doi"] = getDOI($xml, $i);
@@ -75,9 +112,9 @@
 			$article_elem["article"] = getArticle($xml,$i);
 			$article_elem["bibtex"] = getBibtext($url_bibtex,$xml,$i);
 			$article_elem["conference"] = getConference($xml,$i);
-			//$article_elem["publication_type"] = "PDF";
+			$article_elem["publication_type"] = "PDF";
 			$article_elem["abstract"] = getAbstract($xml,$i);
-			$article_elem["text"] = getAbstract($xml,$i);
+			//$article_elem["text"] = getAbstract($xml,$i);
 
 			array_push($articles, $article_elem);
 		}
@@ -109,5 +146,8 @@
 		echo "abstract: ".$array[$i]["abstract"]."<br>";
 		echo "<br>";
 	}*/
+
+	//var_dump(get("halfond", 1));
+	//var_dump(getPDFURL("http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7816457"));
 
 ?>

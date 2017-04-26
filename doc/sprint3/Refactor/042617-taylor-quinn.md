@@ -1,0 +1,2 @@
+- Refactoring `src/authorlist.html'
+- Authorlist.html had multiple functions in the actual code that were located in authorlist.js, so it was a stove pipe. Deleted these identical functions to save space.
