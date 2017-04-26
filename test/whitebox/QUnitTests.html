@@ -152,6 +152,24 @@
                 });
                 clearTests(); 
             });
+            //Checks if PDF Convertor working 
+            QUnit.test("checkExportPDF", function( assert ) {
+                function exportPDFTest(input, expectedResult) {
+                    assert.equal(input+'form=pdf', expectedResult); 
+                }
+                exportPDFTest('Hello','Helloform=pdf');
+                exportPDFTest('Test','Testform=pdf');
+                exportPDFTest('','form=pdf');
+            });
+            //Checks if text convertor working 
+            QUnit.test("checkExportText", function( assert ) {
+                function exportTextTest(input, expectedResult) {
+                    assert.equal(input+'form=txt', expectedResult); 
+                }
+                exportTextTest('Hello','Helloform=txt');
+                exportTextTest('Test','Testform=txt');
+                exportTextTest('','form=txt');
+            });
 
             /*
             *Begin sorting function tests by Jeffrey/Bryce

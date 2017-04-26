@@ -1,2 +1,2 @@
-- Refactoring `src/include/authorlist.js'
-- Authorlist.js had a function that wasn't broken up well for testing, refactored the function into spilt parts to have more specific test functionality
+- Refactoring `src/authorlist.html'
+- Authorlist.html had multiple functions in the actual code that were located in authorlist.js, so it was a stove pipe. Deleted these identical functions to save space.
