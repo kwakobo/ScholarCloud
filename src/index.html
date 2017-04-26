@@ -159,6 +159,7 @@
 
 					function submit (event){
 						addToPreviousSearches(document.getElementById('au').value);
+						console.log( $('#search_form').serialize());
 						event.preventDefault();
 						$.ajax({
 							url:'db/search.php',

@@ -85,6 +85,74 @@
                 PDFHighlightTest("Hello This is a No Test", "Pass", ["whiteHello","whiteThis","whiteis","whitea","whiteNo","whiteTest"]);
                 PDFHighlightTest([], "", []);
             });
+
+            //Checks if bibtex is being acquired properly 
+            QUnit.test("checkSearchBibtex", function( assert ) {
+                //test to clear search
+                function clearTests() {
+                    assert.equal(1,1);
+                }
+                function getBibtexTest(bibtex, expectedResult) {
+                    assert.equal(bibtex, expectedResult);
+                }
+                $.ajax({
+                    url:'../../src/db/search.php',
+                    type: 'get',
+                    data: 'au=halfond&hc=1',
+                    success: function(data) {
+                        var json_data = JSON.parse(data);
+
+                        //Test 2&3
+                        getBibtexTest(json_data[0]['bibtex'],'http://ieeexplore.ieee.org/xpl/downloadCitations?citations-format=citation-only&download-format=download-bibtex&x=0&y=0&recordIds=7816457');
+                        getBibtexTest(json_data[1]['bibtex'],'http://dl.acm.org/exportformats.cfm?expformat=bibtex&id=1496657');
+                    }
+                });
+                clearTests(); 
+            });
+            //Checks if PDF link is being acquired properly 
+            QUnit.test("checkSearchPDF", function( assert ) {
+                //test to clear search
+                function clearTests() {
+                    assert.equal(1,1);
+                }
+                function getPDFTest(PDF, expectedResult) {
+                    assert.equal(PDF, expectedResult); 
+                }     
+                $.ajax({
+                    url:'../../src/db/search.php',
+                    type: 'get',
+                    data: 'au=halfond&hc=1',
+                    success: function(data) {
+                        var json_data = JSON.parse(data);
+                        //Test 2&3
+                        getPDFTest(json_data[0]['article'], 'http://ieeexplore.ieee.org/stampPDF/getPDF.jsp?arnumber=7816457');
+                        getPDFTest(json_data[1]['article'], 'http://dl.acm.org/ft_gateway.cfm?id=1496657');
+                    }
+                });
+                clearTests(); 
+            });
+            //Checks if keywordSearch is being acquired properly 
+            QUnit.test("checkSearchKeyword", function( assert ) {
+                //test to clear search
+                function clearTests() {
+                    assert.equal(1,1);
+                }
+                function keywordSearchTest(data, expectedResult) {
+                    assert.equal(data, expectedResult); 
+                } 
+                $.ajax({
+                    url:'../../src/db/search.php',
+                    type: 'get',
+                    data: 'au=halfond&hc=1',
+                    success: function(data) {
+                        //Test 2&3
+                        keywordSearchTest(data.substring(0,10),'[{\"db\":\"ie');
+                        keywordSearchTest(data.substring(100,110),'9\\/ICSME.2');
+                    }
+                });
+                clearTests(); 
+            });
+
             /*
             *Begin sorting function tests by Jeffrey/Bryce
             */

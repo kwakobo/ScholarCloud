@@ -254,3 +254,17 @@ function checkHighlightPDF(text, chosenWord) {
 	}
 	return testArray; 
 }
+function searchTest(data){
+	var json_data = JSON.parse(data);
+	if(json_data.length == 0)
+	{
+		alert("Author not found");
+		return;
+	}
+	//console.log(json_data[0]['authors'] + " " + json_data.length)
+	var raw_words_from_doc = "";
+	for(var i = 0; i < json_data.length; i++)
+	{
+		raw_words_from_doc += json_data[i]['text'];
+	}
+}
