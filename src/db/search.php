@@ -7,7 +7,7 @@
 
 	function remove_parenthesis($search_term)
 	{
-		return str_replace(array("(", ")"), $search_term);
+		return str_replace(array("(", ")"), "", $search_term);
 	}
 
 	$is_conference_mode = (isset($_GET['is_conf']) && $_GET['is_conf'] == "1");
