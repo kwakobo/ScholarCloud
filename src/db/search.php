@@ -5,8 +5,13 @@
 	require 'ieee_api.php';
 	require 'sql/sql_search.php';
 
+	function remove_parenthesis($search_term)
+	{
+		return str_replace(array("(", ")"), $search_term);
+	}
+
 	$is_conference_mode = (isset($_GET['is_conf']) && $_GET['is_conf'] == "1");
-	$search = $_GET["au"];
+	$search = remove_parenthesis($_GET["au"]);
 
 	/*$parser = new ACMParser();
 	$acm = $parser->parse($_GET["au"], $_GET["hc"]);*/

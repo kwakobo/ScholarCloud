@@ -14,5 +14,13 @@
 			$this->assertTrue(count($acm_articles) == 1);
 			$this->assertTrue(count($ieee) == 1);
 		}
+
+		public function testRemoveParenthesis()
+		{
+			$term = "halfond()";
+			$term_result = remove_parenthesis($term);
+
+			$this->assertTrue($term == $term_result);
+		}
 	}
 ?>
