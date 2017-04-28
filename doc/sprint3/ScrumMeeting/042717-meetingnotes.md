@@ -4,13 +4,13 @@
 3. What will you do until the next meeting?
 
 ### Bryce, Jeffrey
-1. Still working on figuring out how to highlight pDFs
-2. Can't find a suitable pdf maker library
-3. Try to find some other ways to highlight PDFs; if we cannot, then we will not be implementing this.
+1. Finished working on highlighting the PDF
+2. Couldn't find suitable library for a long time
+3. N/A
 
 ### Jason, Mi Hyun
 1. Implemented white box tests; tried to help Bryce and Jeffrey to find a suitable library for modifying PDFs
-2. Unable to find anything on highlighting PDFs
+2. None in particular
 3. Complete sprint 3 report
 
 ### Taylor, Quinn
