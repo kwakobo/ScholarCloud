@@ -42,7 +42,7 @@
 		  </div>
 		  <form id="fulltext_pdf_form" method="post">
 		  	<input type="hidden" id="word_clicked_full_text" name="word_clicked_full_text">
-		  	<input type="hidden" id="fulltext_input" name="fulltext_input">
+		  	<input type="hidden" id="pdf_url_input" name="pdf_url_input">
 		  	<input type="submit" id="highlighted_pdf" value="Download PDF" formaction="export.php?form=fulltext">
 		</form>
 		</div>
@@ -104,10 +104,10 @@
 				win.focus();
 			}
 			//sets abstract box and highlights word
-			function setAbstract(abstractText, fullText) {
+			function setAbstract(abstractText, url) {
 				var chosenWord = localStorage.word_chosen;
 				document.getElementById("word_clicked_full_text").value = chosenWord;
-				document.getElementById("fulltext_input").value = fullText;
+				document.getElementById("pdf_url_input").value = url;
 				var abstractArray = abstractText.split(" "); 
 				abstractArray = checkHighlight(abstractArray,chosenWord);
 				var str = abstractArray.toString();
@@ -189,7 +189,7 @@
 					var article = document.createElement("td");
 					var abstract = articles[i]['abstract']; 
 					console.log(abstract);
-					article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'].replace(/'/g, "&#39;") + "', '" + articles[i]['text'].replace(/'/g, "&#39;") +"');");
+					article.setAttribute("onclick","setAbstract('" + articles[i]['abstract'].replace(/'/g, "&#39;") + "', '" + articles[i]['article']+"');");
 					var url = document.createElement("td");
 					url.setAttribute("onclick", "open_url('" + articles[i]['article'] + "');");
 					var bibtex = document.createElement("td");

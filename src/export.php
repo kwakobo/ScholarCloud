@@ -4,7 +4,7 @@
 	if($_GET['form'] == "fulltext")
 	{
 		$word_clicked = $_POST['word_clicked_full_text'];
-		$fulltext = $_POST['fulltext_input'];
+		$url = $_POST['pdf_url_input'];
 	}
 	else
 	{
@@ -27,6 +27,6 @@
 	}
 	else if($_GET['form'] === "fulltext")
 	{
-		createPDFWithHighlights($fulltext, $word_clicked);
+		createPDFWithHighlights($url, $word_clicked);
 	}
 ?>

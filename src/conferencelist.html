@@ -15,6 +15,7 @@
 					<th>Download</th>
 					<th>Bibtex</th>
 					<th>Authors</th>
+					<th>Frequency</th>
 				</tr>
 			</table>
 		</table>
@@ -65,12 +66,39 @@
 					return request.responseText;
 			}
 
+			function word_freq(sentence, word)
+			{
+				console.log(sentence);
+				word = word.toLowerCase();
+				var counter = 0;
+				var text = sentence;
+				var array = [];
+				var index = -1;
+
+				// replace is from wordfreq.worker.js
+				text = text
+					.replace(/\.+/g, '.') // replace multiple full stops
+					.replace(/(.{3,})\.$/g, '$1') // replace single trailing stop
+					.replace(/n[\'’]t\b/ig, '') // get rid of ~n't
+					.replace(/[\'’](s|ll|d|ve)?\b/ig, '') // get rid of ’ and '
+					.toLowerCase();
+
+				do {
+					index = text.indexOf(word, index + 1);
+					if (index != -1) {
+						array[counter++] = index;
+						//i = index;
+					}
+				} while (index != -1);
+				return counter;
+			}
+
 			var conf = getParameterByName("conf");
 			document.getElementById("title").innerHTML = conf;
 
 			var table = document.getElementById("table");
 			var word_chosen = localStorage.word_chosen;
-			var json_resp = readJSON("db/search.php?au=" + conf + "&hc=100&is_conf=1");
+			var json_resp = readJSON("db/search.php?au=" + conf + "&hc=25&is_conf=1");
 			var articles = JSON.parse(json_resp);
 
 			console.log(articles);
@@ -90,27 +118,22 @@
 				var bibtex = document.createElement("td");
 				bibtex.setAttribute("onclick", "open_url('" + articles[i]['bibtex'] + "');");
 				//QUINN AND TAYLOR CODE 
+				var frequncy = document.createElement("td");
 				var authors = document.createElement("td"); 
-				var conferenceName = document.createElement("td");
-				var checkboxSpot = document.createElement("td");
-				var checkbox = document.createElement('input');
-				checkbox.type = "checkbox";
-				checkbox.name = "shouldInclude";
-				checkbox.value = "value";
-
+				//var conferenceName = document.createElement("td");
 				row.appendChild(article);
 				row.appendChild(url);
 				row.appendChild(bibtex);
 				//QUINN AND TAYLOR CODE
 				row.appendChild(authors);
-				row.appendChild(conferenceName);
-				row.appendChild(checkbox);
+				//row.appendChild(conferenceName);
+				row.appendChild(frequncy);
 
 				article.innerHTML = articles[i]['title'];
 				url.innerHTML = "URL";
 				bibtex.innerHTML = "bibtex";
+				frequncy.innerHTML = word_freq(articles[i]['abstract'], word_chosen);
 				//QUINN AND TAYLOR CODE
-				checkboxSpot.innerHTML = checkbox;
 				authors_list = parse_authors(articles[i]['authors']);
 				for(j = 0; j < authors_list.length; j++)
 				{

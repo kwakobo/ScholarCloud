@@ -35,8 +35,15 @@ class ACM_API
 
 			$title = $json_articles[$i]['title'][0];
 			$article_num = $this->get_article_num($json_articles[$i]['DOI']);
-			$authors = $this->get_authors($json_articles[$i]['author']);
-			$pdf = "http://dl.acm.org/ft_gateway.cfm?id=".$article_num;
+			@$authors = $this->get_authors($json_articles[$i]['author']);
+			if(is_null($article_num))
+			{
+				$pdf = "";
+			}
+			else
+			{
+				$pdf = "http://dl.acm.org/ft_gateway.cfm?id=".$article_num;
+			}
 			$bibtex = $url_bibtex.$article_num;
 			//$abstract = $this->get_abstract("http://dl.acm.org/citation.cfm?id=".$article_num);
 			if(array_key_exists('event', $json_articles[$i]))
@@ -65,7 +72,11 @@ class ACM_API
 	// OUTPUT: "1496657"
 	private function get_article_num($doi)
 	{
-		return explode(".", $doi)[2];
+		$doi_explanded = explode(".", $doi);//[2];
+		if(count($doi_explanded) < 3)
+			return null;
+		else
+			return $doi_explanded[2];
 	}
 
 	/* INPUT: author": [
@@ -98,6 +109,12 @@ class ACM_API
 		return $author_single_string;
 	}
 
+	function get_http_response_code($url) {
+		$headers = get_headers($url);
+		return substr($headers[0], 9, 3);
+	}
+
+
 	// INPUT: http://dl.acm.org/citation.cfm?id=1496657
 	// OUTPUT: The goal of my work is to improve quality assurance techniques for web applications. I will develop automated techniques for modeling web applications and use these models to improve testing and analysis of web applications.
 	public function get_abstract($url)
@@ -106,7 +123,15 @@ class ACM_API
 		$url = $url."&preflayout=flat";
 		$abstract_id =  " <div style=\"display:inline\">";
 		$abstract_id_end = "</div>";
-		$html_file = file_get_contents($url);
+
+		if($this->get_http_response_code($url) != 200)
+		{
+			return "";
+		}
+		else
+		{
+			$html_file = file_get_contents($url);
+		}
 		if(!$html_file)
 			return "";
 

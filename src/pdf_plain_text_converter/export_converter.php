@@ -40,26 +40,45 @@ function white($pdf, $word)
 	$pdf->Cell($pdf->GetStringWidth($word),5, $word, 0, 0, 'R', true);
 }
 
-function createPDFWithHighlights($text, $highlight_word) {
-	$pdf = set_font();
-	$words = explode(" ", $text);
-	$pdfString = '';
-	$pageWidth = $pdf->GetPageWidth();
-	foreach($words as $word) {
-		if (strcasecmp($word, $highlight_word) != 0) {
-			white($pdf, $word);
-			white($pdf, " ");
-		}
-		else if (strcasecmp($word, $highlight_word) == 0) {
-			yellow($pdf, $word);
-			white($pdf, " ");
-		}
-		$currX = $pdf->GetX();
-		if ($currX > $pageWidth-20) {
-			$pdf->Ln();
-		}
-	}
-	$pdf->Output();
+
+function getPDFURL($url){
+	$cookiejar = "cookie.txt";
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+	//curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0');
+	curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+	curl_setopt($ch, CURLOPT_COOKIESESSION, true );
+	//curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiejar );
+	curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiejar );
+
+	$response = curl_exec($ch);
+	curl_close($ch);
+
+	return $response;
+}
+
+function createPDFWithHighlights($url, $highlight_word) {
+	$filename = "tmp.pdf";
+	$filename_highlighted = "tmp_highlighted.pdf";
+	$file = file_put_contents($filename, getPDFURL($url));
+
+	if(!$file)
+		return;
+
+	shell_exec ("java -jar " . dirname(__FILE__) . "/pdfhighlight.jar " . $filename . " " . $filename_highlighted . " " . $highlight_word);
+
+	header("Content-type:application/pdf");
+	// It will be called downloaded.pdf
+	header("Content-Disposition:attachment;filename='downloaded.pdf'");
+	// The PDF source is in original.pdf
+	readfile($filename_highlighted);
+
+	unlink($filename);
+	unlink($filename_highlighted);
 }
 
 function createPDFListOfPapers($word_clicked, $titles, $authors, $conferences, $frequencies, $pdfs, $bibtexs)

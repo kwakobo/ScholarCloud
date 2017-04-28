@@ -6,6 +6,7 @@
 	require 'sql/sql_search.php';
 
 	$is_conference_mode = (isset($_GET['is_conf']) && $_GET['is_conf'] == "1");
+	$search = $_GET["au"];
 
 	/*$parser = new ACMParser();
 	$acm = $parser->parse($_GET["au"], $_GET["hc"]);*/
@@ -60,7 +61,25 @@
 	}
 	else
 	{
-		$output = array_merge_recursive($acm_articles, $ieee);
+		foreach($acm_articles as &$article)
+		{
+			$sql_result = @sql_get($article['db'], $article['doi']);
+			if($sql_result != false)
+			{
+				//$article['text'] = $sql_result['text'];
+				$article['abstract'] = $sql_result['abstract'];
+			}
+			else
+			{
+				$article['abstract'] = $acm->get_abstract("http://dl.acm.org/citation.cfm?id=".$article['arnumber']);
+			}
+		}
+		if(empty($acm_articles))
+			$output = $ieee;
+		else if(empty($ieee))
+			$output = $acm_articles;
+		else
+			$output = array_merge_recursive($acm_articles, $ieee);
 	}
 	
 	echo json_encode($output);
